@@ -1,0 +1,25 @@
+employe:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:Employe:index" }
+
+employe_show:
+    pattern:  /{id}/details
+    defaults: { _controller: "KemistraMainBundle:Employe:show" }
+
+employe_new:
+    pattern:  /nouveau
+    defaults: { _controller: "KemistraMainBundle:Employe:new" }
+
+employe_create:
+    pattern:  /creation
+    defaults: { _controller: "KemistraMainBundle:Employe:create" }
+    requirements: { _method: post }
+
+employe_edit:
+    pattern:  /{id}/edition-des-informations
+    defaults: { _controller: "KemistraMainBundle:Employe:edit" }
+
+employe_update:
+    pattern:  /{id}/mise-a-jour-des-informations
+    defaults: { _controller: "KemistraMainBundle:Employe:update" }
+    requirements: { _method: post|put }

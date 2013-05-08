@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}Liste des employés{% endblock %}
+
+{% block body -%}
+    <h1>Liste des employés</h1>
+    
+    <table class="records_list table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+				<th>Prénom</th>
+                <th>Nom</th>
+				<th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employe in employes %}
+            <tr>
+				<td>{{ employe.prenom }}</td>
+                <td>{{ employe.nom }}</td>
+                <td class="icone">
+					<a title="Détail" href="{{ path('employe_show', { 'id': employe.id }) }}">
+						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
+					</a>
+				</td>
+				<td class="icone">
+					<a title="Éditer" href="{{ path('employe_edit', { 'id': employe.id }) }}">
+						<img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
+					</a> 
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+     
+    <ul>
+        <li>
+			<a href="{{ path('employe_new') }}">
+				Ajouter un nouvel employé
+			</a>
+		</li>
+    </ul>
+    {% endblock %}

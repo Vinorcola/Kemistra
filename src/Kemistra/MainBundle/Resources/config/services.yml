@@ -1,0 +1,7 @@
+parameters:
+#    kemistra_main.example.class: Kemistra\MainBundle\Example
+
+services:
+#    kemistra_main.example:
+#        class: %kemistra_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,40 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Ajout d'un nouveau consommable dans le stock{% endblock %}
+
+{% block body -%}
+    <h1>Ajout d'un nouveau consommable dans le stock</h1>
+    
+    
+    
+    <form action="{{ path('stockconsommable_create') }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Ajouter</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('stockconsommable') }}">Annuler la création</a>.</li>
+    </ul>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        // On rajoute un champ Autre dans la liste.
+        $('select#kemistra_mainbundle_stockconsommabletype_typeConsommable')
+            .change(function()
+            {
+                if ($('select#kemistra_mainbundle_stockconsommabletype_typeConsommable').val() == 0)
+                {
+                    // Si "Autres ..." est sélectionné...
+                    $(location).attr('href', '{{ path('stockconsommablewithtypeconsommable_new') }}');
+                }
+            })
+            .append('<option value="0">Autre ...</option>');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Ajout d'un nouveau matériel dans le stock{% endblock %}
+
+{% block body -%}
+    <h1>Ajout d'un nouveau matériel dans le stock</h1>
+    
+    
+    
+    <form action="{{ path('stockmaterielwithtypemateriel_create') }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Ajouter</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('stockmateriel') }}">Annuler la création</a>.</li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,4 @@
+kemistra_main:
+    resource: "@KemistraMainBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,40 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Édition des informations de l'analyse {{ typeAnalyse.nom }}{% endblock %}
+
+{% block body -%}
+    <h1>Édition des informations de l'analyse {{ typeAnalyse.nom }}</h1>
+    
+    
+    
+    <form action="{{ path('typeanalyse_update', { 'id': typeAnalyse.id }) }}" method="post" {{ form_enctype(formulaire) }}>
+        <input type="hidden" name="_method" value="PUT" />
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Enregistrer</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('typeanalyse_show', { 'id': typeAnalyse.id }) }}">Annuler l'édition</a>.</li>
+    </ul>
+</ul>
+{% endblock %}
+
+
+
+{% block jsInclude %}{{ parent() }}
+<script src="{{ asset('bundles/kemistramain/js/subFormManager.js') }}"></script>{% endblock %}
+
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_typeResultats'));
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_utilise'));
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_typeConsommables'));
+    });
+</script>
+{% endblock %}

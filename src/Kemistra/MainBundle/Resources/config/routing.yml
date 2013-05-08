@@ -1,0 +1,41 @@
+kemistra_main_homepage:
+    pattern:  /
+    defaults: { _controller: KemistraMainBundle:Default:index }
+
+KemistraMainBundle_employe:
+    resource: "@KemistraMainBundle/Resources/config/routing/employe.yml"
+    prefix:   /gestion-des-employes
+
+KemistraMainBundle_client:
+    resource: "@KemistraMainBundle/Resources/config/routing/client.yml"
+    prefix:   /gestion-des-clients
+
+KemistraMainBundle_stockmateriel:
+    resource: "@KemistraMainBundle/Resources/config/routing/stockmateriel.yml"
+    prefix:   /gestion-du-stock-de-materiel
+
+KemistraMainBundle_stockConsommable:
+    resource: "@KemistraMainBundle/Resources/config/routing/stockconsommable.yml"
+    prefix:   /gestion-du-stock-de-consommable
+
+KemistraMainBundle_typeanalyse:
+    resource: "@KemistraMainBundle/Resources/config/routing/typeanalyse.yml"
+    prefix:   /liste-des-analyses-realisables
+
+
+
+
+
+
+KemistraMainBundle_analyse:
+    resource: "@KemistraMainBundle/Resources/config/routing/analyse.yml"
+    prefix:   /analyse
+
+KemistraMainBundle_resultat:
+    resource: "@KemistraMainBundle/Resources/config/routing/resultat.yml"
+    prefix:   /resultat
+
+KemistraMainBundle_typeconsommable:
+    resource: "@KemistraMainBundle/Resources/config/routing/typeconsommable.yml"
+    prefix:   /typeconsommable
+

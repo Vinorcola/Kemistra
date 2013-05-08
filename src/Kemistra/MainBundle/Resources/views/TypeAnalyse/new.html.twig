@@ -1,0 +1,38 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Ajout d'un nouveau type d'analyse{% endblock %}
+
+{% block body -%}
+    <h1>Ajout d'un nouveau type d'analyse</h1>
+    
+    
+    
+    <form action="{{ path('typeanalyse_create') }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Ajouter</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('typeanalyse') }}">Annuler la création</a>.</li>
+    </ul>
+{% endblock %}
+
+
+
+{% block jsInclude %}{{ parent() }}
+<script src="{{ asset('bundles/kemistramain/js/subFormManager.js') }}"></script>{% endblock %}
+
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_typeResultats'));
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_utilise'));
+        manageSubForm($('div#kemistra_mainbundle_typeanalysetype_typeConsommables'));
+    });
+</script>
+{% endblock %}

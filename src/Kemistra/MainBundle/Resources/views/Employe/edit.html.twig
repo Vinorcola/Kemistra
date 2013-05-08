@@ -1,0 +1,30 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}
+	Édition des informations : {{ employe.prenom }} {{ employe.nom }} 
+{% endblock %}
+
+{% block body -%}
+    <h1>	
+		Édition des informations :
+		<br/>
+		{{ employe.prenom }} {{ employe.nom }} 
+	</h1>
+     
+    <form action="{{ path('employe_update', { 'id': employe.id }) }}" method="post" {{ form_enctype(formulaire) }}>
+        <input type="hidden" name="_method" value="PUT" />
+        {{ form_widget(formulaire) }}
+        <p>
+			<button type="submit">Enregistrer</button>
+		</p>
+    </form>
+  
+    <ul class="record_actions">
+        <li>
+			<a href="{{ path('employe') }}">
+				Annuler l'édition des informations du client
+			</a>
+		</li>
+    </ul>
+</ul>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}{{ employe.prenom }} {{ employe.nom }}{% endblock %}
+
+{% block body -%}
+    <h1>{{ employe.prenom }} {{ employe.nom }}</h1>
+      
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <tbody>
+		    <tr>
+                <th>Prénom</th>
+                <td>{{ employe.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ employe.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ employe.adresse }}<br />{{ employe.ville.codePostal }} {{ employe.ville.nom }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ employe.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ employe.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <ul class="record_actions">
+        <li>
+			<a href="{{ path('employe') }}">
+				Retour à la liste des employés
+			</a>
+		</li>
+        <li>
+			<a href="{{ path('employe_edit', { 'id': employe.id }) }}">
+				Éditer les informations de {{ employe.prenom }} {{ employe.nom }}
+			</a>
+		</li>
+    </ul>
+{% endblock %}

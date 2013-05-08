@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}Liste des consommables en stock{% endblock %}
+
+{% block body -%}
+    <h1>Liste des consommables en stock</h1>
+    
+    
+    
+    <table class="records_list table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Nom</th>
+				<th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeConsommable in typeConsommables %}
+            <tr>
+                <td><a href="{{ path('stockconsommable_show', { 'id': typeConsommable.id }) }}">{{ typeConsommable.nom }}</a></td>
+                <td class="icone">
+					<a title="Détail" href="{{ path('stockconsommable_show', { 'id': typeConsommable.id }) }}">
+						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
+					</a>
+				</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    
+    <ul>
+        <li><a href="{{ path('stockconsommable_new') }}">Ajouter un nouveau consommable dans le stock</a>.</li>
+    </ul>
+    {% endblock %}

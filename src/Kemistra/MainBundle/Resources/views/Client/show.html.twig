@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}{{ client.prenom }} {{ client.nom }}{% endblock %}
+
+{% block body -%}
+    <h1>{{ client.prenom }} {{ client.nom }}</h1>
+
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <tbody>
+		    <tr>
+                <th>Prénom</th>
+                <td>{{ client.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ client.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ client.adresse }}<br />{{ client.ville.codePostal }} {{ client.ville.nom }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ client.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+	<ul class="record_actions">
+		<li>
+			<a href="{{ path('client') }}">
+				Retour à la liste des clients
+			</a>
+		</li>
+		<li>
+			<a href="{{ path('client_edit', { 'id': client.id }) }}">
+				Éditer les informations de {{ client.prenom }} {{ client.nom }}
+			</a>
+		</li>
+    </ul>
+{% endblock %}

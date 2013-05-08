@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}{{ typeMateriel.0.nom }} en stock{% endblock %}
+
+{% block body -%}
+    <h1>{{ typeMateriel.0.nom }} en stock</h1>
+    
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Date d'achat</th>
+                <th>Quantité en stock</th>
+                <th>Modifier la quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set somme = 0 %}
+            {% for stock in typeMateriel %}
+                <tr>
+                    <td>{{ stock.dateAchat|date('d/m/Y') }}</td>
+                    <td>{{ stock.quantite }}</td>
+                    <td class="icone">
+                        <a title="Éditer" href="{{ path('stockmateriel_edit', { 'id': stock.idStock }) }}">
+                            <img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
+                        </a> 
+                    </td>
+                </tr>
+                {% set somme = somme + stock.quantite %}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total :</th>
+                <th>{{ somme }}</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('stockmateriel') }}">Retour à la liste du matériel en stock</a>.</li>
+    </ul>
+    
+{% endblock %}

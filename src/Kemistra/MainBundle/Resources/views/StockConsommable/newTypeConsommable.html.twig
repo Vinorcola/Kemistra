@@ -1,0 +1,33 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Ajout d'un nouveau consommable dans le stock{% endblock %}
+
+{% block body -%}
+    <h1>Ajout d'un nouveau consommable dans le stock</h1>
+    
+    
+    
+    <form action="{{ path('stockconsommablewithtypeconsommable_create') }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Ajouter</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('stockconsommable') }}">Annuler la création</a>.</li>
+    </ul>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $("form input.calendrier").datepicker({
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1
+        }).attr("readonly", "readonly");
+    });
+</script>
+{% endblock %}

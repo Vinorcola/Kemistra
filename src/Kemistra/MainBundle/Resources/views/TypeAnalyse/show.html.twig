@@ -1,0 +1,84 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}{{ typeAnalyse.nom }}{% endblock %}
+
+{% block body -%}
+    <h1>{{ typeAnalyse.nom }}</h1>
+    
+    
+    
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ typeAnalyse.nom }}</td>
+            </tr>
+            <tr>
+                <th>Durée estimée de l'analyse</th>
+                <td>{{ typeAnalyse.dureeEstimee|date('G\\hi\\m\\i\\n') }}</td>
+            </tr>
+            <tr>
+                <th>Nombre d'employé nécessaire pour la réalisation de l'analyse</th>
+                <td>{{ typeAnalyse.nombreEmployeNecessaire }}</td>
+            </tr>
+            <tr>
+                <th>Description rapide de l'analyse</th>
+                <td>{{ typeAnalyse.description }}</td>
+            </tr>
+            <tr>
+                <th>Lien vers le fichier du protocole</th>
+                <td><a href="{{ asset(typeAnalyse.uploadDir ~ '/' ~ typeAnalyse.id ~ '-' ~ typeAnalyse.protocole) }}">{{ typeAnalyse.protocole }}</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <h2>Les résultats à enregistrer</h2>
+    
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Information</th>
+                <th>Unité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for typeResultat in typeAnalyse.typeResultats %}
+                <tr>
+                    <td>{{ typeResultat.information }}</td>
+                    <td>{{ typeResultat.unite }}</td>
+                </tr>
+            {% else %}
+                <tr><td clospan="2">Aucun résultat à obtenir.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    <h2>Le matériel à utiliser</h2>
+    
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for utilise in typeAnalyse.utilise %}
+                <tr>
+                    <td>{{ utilise.typeMateriel.nom }}</td>
+                    <td>{{ utilise.quantite }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">Aucune matériel à utiliser</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('typeanalyse') }}">Retour à la liste des types d'analyse</a>.</li>
+        <li><a href="{{ path('typeanalyse_edit', { 'id': typeAnalyse.id }) }}">Éditer les informations de l'analyse {{ typeAnalyse.nom }}</a>.</li>
+    </ul>
+{% endblock %}

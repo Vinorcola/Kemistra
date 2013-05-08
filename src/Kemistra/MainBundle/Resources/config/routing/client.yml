@@ -1,0 +1,25 @@
+client:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:Client:index" }
+
+client_show:
+    pattern:  /{id}/details
+    defaults: { _controller: "KemistraMainBundle:Client:show" }
+
+client_new:
+    pattern:  /nouveau
+    defaults: { _controller: "KemistraMainBundle:Client:new" }
+
+client_create:
+    pattern:  /creation
+    defaults: { _controller: "KemistraMainBundle:Client:create" }
+    requirements: { _method: post }
+
+client_edit:
+    pattern:  /{id}/edition-des-informations
+    defaults: { _controller: "KemistraMainBundle:Client:edit" }
+
+client_update:
+    pattern:  /{id}/mise-a-jour-des-informaitons
+    defaults: { _controller: "KemistraMainBundle:Client:update" }
+    requirements: { _method: post|put }

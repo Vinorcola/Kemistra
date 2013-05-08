@@ -1,0 +1,33 @@
+stockmateriel:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:index" }
+
+stockmateriel_show:
+    pattern:  /{id}/details-d-un-materiel
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:show" }
+
+stockmateriel_new:
+    pattern:  /nouveau-materiel
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:new" }
+
+stockmateriel_create:
+    pattern:  /creation-materiel
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:create" }
+    requirements: { _method: post }
+
+stockmaterielwithtypemateriel_new:
+    pattern:  /nouveau-materiel-de-nouveau-type
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:newTypeMateriel" }
+
+stockmaterielwithtypemateriel_create:
+    pattern:  /creation-materiel-de-nouveau-type
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:createTypeMateriel" }
+    requirements: { _method: post }
+
+stockmateriel_edit:
+    pattern:  /{id}/edition-quantite-en-stock
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:editQuantite" }
+
+stockmateriel_update:
+    pattern:  /{id}/mise-a-jour-quantite-en-stock
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:updateQuantite" }

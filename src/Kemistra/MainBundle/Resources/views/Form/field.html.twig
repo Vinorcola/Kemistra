@@ -1,0 +1,6 @@
+{% extends 'form_div_layout.html.twig' %}
+
+
+{% block date_widget %}
+<input type="date" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endblock %}

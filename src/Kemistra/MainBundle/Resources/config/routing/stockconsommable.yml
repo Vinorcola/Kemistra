@@ -1,0 +1,33 @@
+stockconsommable:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:TypeConsommable:index" }
+
+stockconsommable_show:
+    pattern:  /{id}/details-d-un-consommable
+    defaults: { _controller: "KemistraMainBundle:TypeConsommable:show" }
+
+stockconsommable_new:
+    pattern:  /nouveau-consommable
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:new" }
+
+stockconsommable_create:
+    pattern:  /creation-consommable
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:create" }
+    requirements: { _method: post }
+
+stockconsommablewithtypeconsommable_new:
+    pattern:  /nouveau-consommable-de-nouveau-type
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:newTypeConsommable" }
+
+stockconsommablewithtypeconsommable_create:
+    pattern:  /creation-consommable-de-nouveau-type
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:createTypeConsommable" }
+    requirements: { _method: post }
+
+stockconsommable_edit:
+    pattern:  /{id}/edition-quantite-en-stock
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:editQuantite" }
+
+stockconsommable_update:
+    pattern:  /{id}/mise-a-jour-quantite-en-stock
+    defaults: { _controller: "KemistraMainBundle:StockConsommable:updateQuantite" }

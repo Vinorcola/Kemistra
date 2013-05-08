@@ -1,0 +1,30 @@
+typemateriel:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:index" }
+
+typemateriel_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:show" }
+
+typemateriel_new:
+    pattern:  /new
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:newTypeMateriel" }
+
+typemateriel_create:
+    pattern:  /create
+    defaults: { _controller: "KemistraMainBundle:StockMateriel:createTypeMateriel" }
+    requirements: { _method: post }
+
+typemateriel_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:edit" }
+
+typemateriel_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:update" }
+    requirements: { _method: post|put }
+
+typemateriel_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KemistraMainBundle:TypeMateriel:delete" }
+    requirements: { _method: post|delete }

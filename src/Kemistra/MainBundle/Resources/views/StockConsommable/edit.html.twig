@@ -1,0 +1,20 @@
+{% extends '::form_base.html.twig' %}
+
+{% block titre %}Édition de la quantité de {{ stockConsommable.typeConsommable.nom }} en stock{% endblock %}
+
+{% block body -%}
+    <h1>Édition de la quantité de {{ stockConsommable.typeConsommable.nom }} en stock</h1>
+    
+    
+    
+    <form action="{{ path('stockconsommable_update', { 'id': stockConsommable.id }) }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
+        <p><button type="submit">Enregistrer</button></p>
+    </form>
+    
+    
+    
+    <ul class="record_actions">
+        <li><a href="{{ path('stockconsommable_show', { 'id': stockConsommable.typeConsommable.id }) }}">Annuler l'édition</a>.</li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,25 @@
+typeanalyse:
+    pattern:  /
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:index" }
+
+typeanalyse_show:
+    pattern:  /{id}/details
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:show" }
+
+typeanalyse_new:
+    pattern:  /nouvelle
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:new" }
+
+typeanalyse_create:
+    pattern:  /creation
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:create" }
+    requirements: { _method: post }
+
+typeanalyse_edit:
+    pattern:  /{id}/edition
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:edit" }
+
+typeanalyse_update:
+    pattern:  /{id}/mise-a-jour
+    defaults: { _controller: "KemistraMainBundle:TypeAnalyse:update" }
+    requirements: { _method: post|put }

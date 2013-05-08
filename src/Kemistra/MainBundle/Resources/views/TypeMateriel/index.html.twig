@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}Liste du matériel en stock{% endblock %}
+
+{% block body -%}
+    <h1>Liste du matériel en stock</h1>
+    
+    
+    
+    <table class="records_list table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Nom</th>
+				<th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeMateriel in typeMateriels %}
+            <tr>
+                <td><a href="{{ path('stockmateriel_show', { 'id': typeMateriel.id }) }}">{{ typeMateriel.nom }}</a></td>
+                <td class="icone">
+					<a title="Détail" href="{{ path('stockmateriel_show', { 'id': typeMateriel.id }) }}">
+						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
+					</a>
+				</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    
+    
+    <ul>
+        <li><a href="{{ path('stockmateriel_new') }}">Ajouter un nouveau matériel dans le stock</a>.</li>
+    </ul>
+    {% endblock %}
