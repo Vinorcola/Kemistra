@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Kemistra\MainBundle\Entity\TypeAnalyse;
 use Kemistra\MainBundle\Form\TypeAnalyseType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -203,13 +204,17 @@ class TypeAnalyseController extends Controller
             
             
             // Enregistrement : il faut enregistrer l'analyse en tout premier pour générer l'id.
-            $typeAnalyse->getUtilise()->clear();
             
+            // Récupération de la liste du matériel.
+            $listeMateriel = new ArrayCollection($typeAnalyse->getUtilise()->getValues());
+            
+            // Persist du type d'analyse.
+            $typeAnalyse->getUtilise()->clear();
             $em->persist($typeAnalyse);
             $em->flush();
             
             // On enregistre ensuite chaque matériel utilisé.
-            foreach ($formulaire->get('utilise')->getData() as $utilise)
+            foreach ($listeMateriel as $utilise)
             {
                 $utilise->setTypeAnalyse($typeAnalyse);
                 $em->persist($utilise);

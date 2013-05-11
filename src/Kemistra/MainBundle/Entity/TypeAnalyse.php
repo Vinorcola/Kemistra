@@ -64,7 +64,7 @@ class TypeAnalyse
     
     
     /**
-     * @ORM\Column(name="protocole", type="string", length=100)
+     * @ORM\Column(name="protocole", type="string", length=255, nullable=TRUE)
      */
     private $protocole;
     

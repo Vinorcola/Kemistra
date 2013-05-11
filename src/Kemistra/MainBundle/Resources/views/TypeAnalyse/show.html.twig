@@ -77,6 +77,24 @@
     </table>
     
     
+    <h2>Les consommables nécessaires</h2>
+    
+    <table class="record_properties table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consomme in typeAnalyse.typeConsommables %}
+                <tr>
+                    <td>{{ consomme.nom }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    
     <ul class="record_actions">
         <li><a href="{{ path('typeanalyse') }}">Retour à la liste des types d'analyse</a>.</li>
         <li><a href="{{ path('typeanalyse_edit', { 'id': typeAnalyse.id }) }}">Éditer les informations de l'analyse {{ typeAnalyse.nom }}</a>.</li>

@@ -6,11 +6,7 @@ function manageSubForm($element)
     // Initialisation du nombre de sous-formulaires.
     var nbSubForm = $element.children('div').size();
     
-    if (nbSubForm == 0)
-    {
-        addSubForm($element);
-    }
-    else
+    if (nbSubForm != 0)
     {
         $element.children('div').each(function()
         {

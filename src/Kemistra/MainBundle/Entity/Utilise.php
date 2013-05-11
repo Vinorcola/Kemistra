@@ -25,7 +25,7 @@ class Utilise
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="TypeAnalyse", inversedBy="utilise")
+     * @ORM\ManyToOne(targetEntity="TypeAnalyse", inversedBy="utilise", cascade={"persist"})
      * @ORM\Id
      * @Assert\Valid()
      */
