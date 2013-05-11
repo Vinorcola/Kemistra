@@ -71,7 +71,7 @@
                     <td>{{ utilise.quantite }}</td>
                 </tr>
             {% else %}
-                <tr><td colspan="2">Aucune matériel à utiliser</td></tr>
+                <tr><td colspan="2">Aucun matériel à utiliser</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -90,6 +90,8 @@
                 <tr>
                     <td>{{ consomme.nom }}</td>
                 </tr>
+            {% else %}
+                <tr><td>Aucun consommable à utiliser</td></tr>
             {% endfor %}
         </tbody>
     </table>
