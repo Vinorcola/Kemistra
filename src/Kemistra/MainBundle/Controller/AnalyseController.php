@@ -15,172 +15,146 @@ use Kemistra\MainBundle\Form\AnalyseType;
 class AnalyseController extends Controller
 {
     /**
-     * Lists all Analyse entities.
-     *
+     * Affiche la liste des analyses.
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+		// Récupération de la liste des analyses.
+        $analyses = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Analyse')->findAll();
 
-        $entities = $em->getRepository('KemistraMainBundle:Analyse')->findAll();
-
-        return $this->render('KemistraMainBundle:Analyse:index.html.twig', array(
-            'entities' => $entities,
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Analyse:index.html.twig', 
+							array('analyses' => $analyses));
     }
 
     /**
-     * Creates a new Analyse entity.
-     *
+     * Ajoute une nouvelle analyse.
      */
     public function createAction(Request $request)
     {
-        $entity  = new Analyse();
-        $form = $this->createForm(new AnalyseType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('analyse_show', array('id' => $entity->getId())));
+		// Création de l'entité.
+        $analyse  = new Analyse();
+		
+		// Enregistrement du formulaire.
+        if ($this->saveAnalyse($request, $analyse, $formulaire)) 
+		{
+            return $this->redirect($this->generateUrl('analyse_show', array('id' => $analyse->getId())));
         }
-
-        return $this->render('KemistraMainBundle:Analyse:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+		else
+		{
+			// Le formulaire est invalide. Nouvel affichage du formulaire.
+			return $this->render('KemistraMainBundle:Analyse:new.html.twig', 
+								array('formulaire' => $formulaire->createView()));
+		}
     }
 
     /**
-     * Displays a form to create a new Analyse entity.
-     *
+     * Affiche le formulaire d'ajout d'une nouvelle analyse.
      */
     public function newAction()
     {
-        $entity = new Analyse();
-        $form   = $this->createForm(new AnalyseType(), $entity);
+		// Création de l'entité et du formulaire.
+        $analyse = new Analyse();
+        $formulaire = $this->createForm(new AnalyseType(), $analyse);
 
-        return $this->render('KemistraMainBundle:Analyse:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Analyse:new.html.twig', 
+							array('formulaire' => $formulaire->createView()));
     }
 
     /**
-     * Finds and displays a Analyse entity.
-     *
+     * Affiche les informations concernant une analyse.
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KemistraMainBundle:Analyse')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Analyse entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('KemistraMainBundle:Analyse:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Analyse:show.html.twig', 
+							array('analyse' => $this->getAnalyse($id)));
     }
 
     /**
-     * Displays a form to edit an existing Analyse entity.
-     *
+     * Affiche le formulaire d'édition d'une analyse.
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+		// Récupération de l'analyse.
+        $analyse = $this->getAnalyse($id);
 
-        $entity = $em->getRepository('KemistraMainBundle:Analyse')->find($id);
+		// Création du formulaire.
+        $formulaire = $this->createForm(new AnalyseType(), $analyse);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Analyse entity.');
-        }
-
-        $editForm = $this->createForm(new AnalyseType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('KemistraMainBundle:Analyse:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Analyse:edit.html.twig', 
+							array('analyse' 	 => $analyse,
+								  'formulaire'   => $formulaire->createView()));
     }
 
     /**
-     * Edits an existing Analyse entity.
-     *
+     * Édite les informations d'une analyse.
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KemistraMainBundle:Analyse')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Analyse entity.');
+        // Récupération de l'analyse.
+        $analyse = $this->getAnalyse($id);
+        
+        // Enregistrement du formulaire.
+        if ($this->saveAnalyse($request, $analyse, $formulaire))
+        {
+            return $this->redirect($this->generateUrl('analyse_show', array('id' => $analyse->getId())));
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new AnalyseType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('analyse_edit', array('id' => $id)));
+        else
+        {
+            // Le formulaire est invalide. Nouvel affichage du formulaire.
+            return $this->render('KemistraMainBundle:Analyse:edit.html.twig',
+                                 array('analyse'    => $analyse,
+                                       'formulaire' => $formulaire->createView()));
         }
-
-        return $this->render('KemistraMainBundle:Analyse:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
-     * Deletes a Analyse entity.
-     *
+     * Récupère une analyse depuis la base de données grâce à son id.
      */
-    public function deleteAction(Request $request, $id)
+    private function getAnalyse($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        // Récupération de l'analyse.
+        $analyse = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Analyse')->find($id);
+        
+        // Si l'analyse n'existe pas, génération d'une erreur 404.
+        if (!$analyse)
+        {
+            throw $this->createNotFoundException('Impossible de trouver l\'analyse.');
+        }
+         
+        // Renvoie de l'analyse.
+        return $analyse;
+    }
 
-        if ($form->isValid()) {
+    /**
+     * Tente de sauvegarder une analyse dans la base de données.
+     */
+    private function saveAnalyse(Request $request,
+                                 $analyse,
+                                 &$formulaire)
+    {
+        // Création du formulaire.
+        $formulaire = $this->createForm(new AnalyseType(), $analyse);
+        
+        // Récupération des données POST depuis la requête.
+        $formulaire->bind($request);
+        
+        // Vérification du formulaire.
+        if ($formulaire->isValid())
+        {
+            // Récupération de l'EntityManager.
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KemistraMainBundle:Analyse')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Analyse entity.');
-            }
-
-            $em->remove($entity);
+            
+            // On enregistre le type d'analyse dans la base de données.
+            $em->persist($analyse);
             $em->flush();
+            
+            return true;
         }
 
-        return $this->redirect($this->generateUrl('analyse'));
-    }
-
-    /**
-     * Creates a form to delete a Analyse entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return false;
     }
 }

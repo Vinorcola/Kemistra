@@ -71,11 +71,11 @@ class TypeConsommableController extends Controller
         // Si le type de consommable n'existe pas, génération d'une erreur 404.
         if (!$typeConsommable)
         {
-            throw $this->createNotFoundException('Impossible de trouver le type d\'analyse.');
+            throw $this->createNotFoundException('Impossible de trouver le type de consommable.');
         }
         
         
-        // Renvoie du type d'analyse.
+        // Renvoie du type de consommable.
         return $typeConsommable;
     }
 }

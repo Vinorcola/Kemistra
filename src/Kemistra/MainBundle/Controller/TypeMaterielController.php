@@ -71,11 +71,11 @@ class TypeMaterielController extends Controller
         // Si le type de matériel n'existe pas, génération d'une erreur 404.
         if (!$typeMateriel)
         {
-            throw $this->createNotFoundException('Impossible de trouver le type d\'analyse.');
+            throw $this->createNotFoundException('Impossible de trouver le type de matériel.');
         }
         
         
-        // Renvoie du type d'analyse.
+        // Renvoie du type de matériel.
         return $typeMateriel;
     }
 }

@@ -140,7 +140,7 @@ class StockConsommableController extends Controller
      */
     public function updateQuantiteAction(Request $request, $id)
     {
-        // Récupération de l'employé.
+        // Récupération de consommable en stock.
         $stockConsommable = $this->getStockConsommable($id);
         
         

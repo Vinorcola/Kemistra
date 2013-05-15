@@ -20,11 +20,11 @@ use Kemistra\MainBundle\Form\ClientProType;
 class ClientController extends Controller
 {
     /**
-     * Affiche la liste des employés.
+     * Affiche la liste des clients.
      */
     public function indexAction()
     {
-        // Récupération de la liste des employés.
+        // Récupération de la liste des clients.
         $repository = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Client');
         $clientsParticuliers = $repository->getListeParticuliers();
         $clientsProfessionnels = $repository->getListeProfessionels();
@@ -42,7 +42,7 @@ class ClientController extends Controller
     
     
     /**
-     * Ajoute un nouvel employé.
+     * Ajoute un nouvel client.
      */
     public function createAction(Request $request)
     {
@@ -69,7 +69,7 @@ class ClientController extends Controller
     
     
     /**
-     * Affiche le formulaire d'ajout d'un nouvel employé.
+     * Affiche le formulaire d'ajout d'un nouvel client.
      */
     public function newAction()
     {
@@ -89,7 +89,7 @@ class ClientController extends Controller
     
     
     /**
-     * Affiche les informations concernant un employé.
+     * Affiche les informations concernant un client.
      */
     public function showAction($id)
     {
@@ -103,11 +103,11 @@ class ClientController extends Controller
     
     
     /**
-     * Affiche le formulaire d'édition d'un employé.
+     * Affiche le formulaire d'édition d'un client.
      */
     public function editAction($id)
     {
-        // Récupération de l'employé.
+        // Récupération de l'client.
         $client = $this->getClient($id);
         
         
@@ -128,11 +128,11 @@ class ClientController extends Controller
     
     
     /**
-     * Édite les informations d'un employé.
+     * Édite les informations d'un client.
      */
     public function updateAction(Request $request, $id)
     {
-        // Récupération de l'employé.
+        // Récupération de l'client.
         $client = $this->getClient($id);
         
         
@@ -156,11 +156,11 @@ class ClientController extends Controller
     
     
     /**
-     * Affiche le formulaire d'édition d'un employé.
+     * Affiche le formulaire d'édition d'un client.
      */
     public function editProAction($id)
     {
-        // Récupération de l'employé.
+        // Récupération de l'client.
         $client = $this->getClient($id);
         
         
@@ -181,11 +181,11 @@ class ClientController extends Controller
     
     
     /**
-     * Édite les informations d'un employé.
+     * Édite les informations d'un client.
      */
     public function updateProAction(Request $request, $id)
     {
-        // Récupération de l'employé.
+        // Récupération de l'client.
         $client = $this->getClient($id);
         
         
@@ -219,22 +219,22 @@ class ClientController extends Controller
     
     
     /**
-     * Récupère un employé depuis la base de données grâce à son id.
+     * Récupère un client depuis la base de données grâce à son id.
      */
     private function getClient($id)
     {
-        // Récupération de l'employé.
+        // Récupération de l'client.
         $client = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Client')->find($id);
         
         
-        // Si l'employé n'existe pas, génération d'une erreur 404.
+        // Si l'client n'existe pas, génération d'une erreur 404.
         if (!$client)
         {
-            throw $this->createNotFoundException('Impossible de trouver l\'employé.');
+            throw $this->createNotFoundException('Impossible de trouver le client.');
         }
         
         
-        // Renvoie de l'employé
+        // Renvoie de l'client
         return $client;
     }
     
@@ -243,7 +243,7 @@ class ClientController extends Controller
     
     
     /**
-     * Tente de sauvegarder un employé dans la base de données.
+     * Tente de sauvegarder un client dans la base de données.
      */
     private function saveClient(Request $request,
                                  $client,
@@ -290,7 +290,7 @@ class ClientController extends Controller
     
     
     /**
-     * Tente de sauvegarder un employé dans la base de données.
+     * Tente de sauvegarder un client dans la base de données.
      */
     private function saveClientPro(Request $request,
                                     $client,

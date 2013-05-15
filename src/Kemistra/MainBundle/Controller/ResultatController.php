@@ -15,172 +15,146 @@ use Kemistra\MainBundle\Form\ResultatType;
 class ResultatController extends Controller
 {
     /**
-     * Lists all Resultat entities.
-     *
+     * Affiche la liste des résultats.
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+		// Récupération de la liste des résultats.
+        $resultats = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Resultat')->findAll();
 
-        $entities = $em->getRepository('KemistraMainBundle:Resultat')->findAll();
-
-        return $this->render('KemistraMainBundle:Resultat:index.html.twig', array(
-            'entities' => $entities,
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Resultat:index.html.twig', 
+							array('resultat' => $resultats));
     }
 
     /**
-     * Creates a new Resultat entity.
-     *
+     * Ajoute une nouveau résultat.
      */
     public function createAction(Request $request)
     {
-        $entity  = new Resultat();
-        $form = $this->createForm(new ResultatType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('resultat_show', array('id' => $entity->getId())));
+		// Création de l'entité.
+        $resultat  = new Resultat();
+		
+		// Enregistrement du formulaire.
+        if ($this->saveAResultat($request, $resultat, $formulaire)) 
+		{
+            return $this->redirect($this->generateUrl('resultat_show', array('id' => $resultat->getId())));
         }
-
-        return $this->render('KemistraMainBundle:Resultat:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+		else
+		{
+			// Le formulaire est invalide. Nouvel affichage du formulaire.
+			return $this->render('KemistraMainBundle:Resultat:new.html.twig', 
+								array('formulaire' => $formulaire->createView()));
+		}
     }
 
     /**
-     * Displays a form to create a new Resultat entity.
-     *
+     * Affiche le formulaire d'ajout d'un nouveau résultat.
      */
     public function newAction()
     {
-        $entity = new Resultat();
-        $form   = $this->createForm(new ResultatType(), $entity);
+		// Création de l'entité et du formulaire.
+        $resultat = new Resultat();
+        $formulaire = $this->createForm(new ResultatType(), $resultat);
 
-        return $this->render('KemistraMainBundle:Resultat:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Resultat:new.html.twig', 
+							array('formulaire' => $formulaire->createView()));
     }
 
     /**
-     * Finds and displays a Resultat entity.
-     *
+     * Affiche les informations concernant un résultat.
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KemistraMainBundle:Resultat')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Resultat entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('KemistraMainBundle:Resultat:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Resultat:show.html.twig', 
+							array('resultat' => $this->getResultat($id)));
     }
 
     /**
-     * Displays a form to edit an existing Resultat entity.
-     *
+     * Affiche le formulaire d'édition d'un résultat.
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+		// Récupération du résultat.
+        $resultat = $this->getResultat($id);
 
-        $entity = $em->getRepository('KemistraMainBundle:Resultat')->find($id);
+		// Création du formulaire.
+        $formulaire = $this->createForm(new ResultatType(), $resultat);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Resultat entity.');
-        }
-
-        $editForm = $this->createForm(new ResultatType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('KemistraMainBundle:Resultat:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Resultat:edit.html.twig', 
+							array('resultat' 	 => $resultat,
+								  'formulaire'   => $formulaire->createView()));
     }
 
     /**
-     * Edits an existing Resultat entity.
-     *
+     * Édite les informations d'un résultat.
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('KemistraMainBundle:Resultat')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Resultat entity.');
+        // Récupération du résultat.
+        $resultat = $this->getResultat($id);
+        
+        // Enregistrement du formulaire.
+        if ($this->saveResultat($request, $resultat, $formulaire))
+        {
+            return $this->redirect($this->generateUrl('resultat_show', array('id' => $resultat->getId())));
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ResultatType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('resultat_edit', array('id' => $id)));
+        else
+        {
+            // Le formulaire est invalide. Nouvel affichage du formulaire.
+            return $this->render('KemistraMainBundle:Resultat:edit.html.twig',
+                                 array('resultat'    => $resultat,
+                                       'formulaire' => $formulaire->createView()));
         }
-
-        return $this->render('KemistraMainBundle:Resultat:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
-     * Deletes a Resultat entity.
-     *
+     * Récupère un résultat depuis la base de données grâce à son id.
      */
-    public function deleteAction(Request $request, $id)
+    private function getResultat($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        // Récupération du résultat.
+        $resultat = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Resultat')->find($id);
+        
+        // Si le résultat n'existe pas, génération d'une erreur 404.
+        if (!$resultat)
+        {
+            throw $this->createNotFoundException('Impossible de trouver le résultat.');
+        }
+         
+        // Renvoie du résultat.
+        return $resultat;
+    }
 
-        if ($form->isValid()) {
+    /**
+     * Tente de sauvegarder un résultat dans la base de données.
+     */
+    private function saveResultat(Request $request,
+                                 $resultat,
+                                 &$formulaire)
+    {
+        // Création du formulaire.
+        $formulaire = $this->createForm(new ResultatType(), $resultat);
+        
+        // Récupération des données POST depuis la requête.
+        $formulaire->bind($request);
+        
+        // Vérification du formulaire.
+        if ($formulaire->isValid())
+        {
+            // Récupération de l'EntityManager.
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KemistraMainBundle:Resultat')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Resultat entity.');
-            }
-
-            $em->remove($entity);
+            
+            // On enregistre le type de résultat dans la base de données.
+            $em->persist($resultat);
             $em->flush();
+            
+            return true;
         }
 
-        return $this->redirect($this->generateUrl('resultat'));
-    }
-
-    /**
-     * Creates a form to delete a Resultat entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return false;
     }
 }
