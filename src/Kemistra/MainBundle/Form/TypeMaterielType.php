@@ -16,7 +16,8 @@ class TypeMaterielType extends AbstractType
     {
         $builder
             ->add('nom', null, array('label' => 'Nom'))
-            ->add('description', null, array('label' => 'Description'))
+            ->add('description', null, array('label' => 'Description',
+                                             'required' => false))
         ;
     }
 

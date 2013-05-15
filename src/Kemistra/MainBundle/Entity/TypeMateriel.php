@@ -40,7 +40,7 @@ class TypeMateriel
     
     
     /**
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=TRUE)
      * @Assert\NotBlank()
      */
     private $description;
