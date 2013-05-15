@@ -11,9 +11,9 @@ class StockMaterielNewTMType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('typeMateriel', new TypeMaterielType(), array('label' => 'Type de matériel'))
-            ->add('quantite', null, array('label' => 'Quantité'))
-            ->add('dateAchat', null, array('label' => 'Date d\'achat'))
+            ->add('typeMateriel', new TypeMaterielType(), array('label' => 'Type de matériel : '))
+            ->add('quantite', null, array('label' => 'Quantité : '))
+            ->add('dateAchat', null, array('label' => 'Date d\'achat : '))
         ;
     }
 

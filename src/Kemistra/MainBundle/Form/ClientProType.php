@@ -6,26 +6,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TypeConsommableType extends AbstractType
+class ClientProType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom', null, array('label' => 'Nom : '))
-            ->add('description', null, array('label' => 'Description : '))
-            ->add('unite', null, array('label' => 'Unité : '))
+            ->add('adresse', null, array('label' => 'Adresse : '))
+            ->add('telephone', null, array('label' => 'Téléphone : '))
+            ->add('email', null, array('label' => 'Email : '))
+            ->add('ville', new VilleType(), array('label' => ' '))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Kemistra\MainBundle\Entity\TypeConsommable'
+            'data_class' => 'Kemistra\MainBundle\Entity\Client',
+			'cascade_validation' => true
         ));
     }
 
     public function getName()
     {
-        return 'kemistra_mainbundle_typeconsommabletype';
+        return 'kemistra_mainbundle_clienttype';
     }
 }

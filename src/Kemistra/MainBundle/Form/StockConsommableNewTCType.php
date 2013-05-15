@@ -11,11 +11,11 @@ class StockConsommableNewTCType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('typeConsommable', new TypeConsommableType(), array('label' => 'Type de consommable'))
-            ->add('numeroLot', null, array('label' => 'Numéro de lot'))
-            ->add('quantiteAchetee', null, array('label' => 'Quantité achetée'))
-            ->add('quantiteRestante', null, array('label' => 'Quantité restante'))
-            ->add('datePeremption', 'date', array('label' => 'Date de péremption',
+            ->add('typeConsommable', new TypeConsommableType(), array('label' => 'Type de consommable : '))
+            ->add('numeroLot', null, array('label' => 'Numéro de lot : '))
+            ->add('quantiteAchetee', null, array('label' => 'Quantité achetée : '))
+            ->add('quantiteRestante', null, array('label' => 'Quantité restante : '))
+            ->add('datePeremption', 'date', array('label' => 'Date de péremption : ',
                                                   'widget' => 'single_text'))
         ;
     }

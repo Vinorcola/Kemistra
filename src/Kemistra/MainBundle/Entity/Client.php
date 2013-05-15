@@ -38,8 +38,7 @@ class Client
     
     
     /**
-     * @ORM\Column(name="prenom", type="string", length=80)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="prenom", type="string", length=80, nullable=TRUE)
      * @Assert\Length(min="3",
      *                max="80",
      *                minMessage="Le prénom doit faire au moins {{ limit }} caractères.",

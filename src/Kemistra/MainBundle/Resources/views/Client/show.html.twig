@@ -3,14 +3,20 @@
 {% block titre %}{{ client.prenom }} {{ client.nom }}{% endblock %}
 
 {% block body -%}
-    <h1>{{ client.prenom }} {{ client.nom }}</h1>
-
+    {% if client.prenom is null %}
+        <h1>{{ client.nom }} (client pro)</h1>
+    {% else %}
+        <h1>{{ client.prenom }} {{ client.nom }}</h1>
+    {% endif %}
+    
     <table class="record_properties table table-bordered table-striped table-condensed">
         <tbody>
-		    <tr>
-                <th>Prénom</th>
-                <td>{{ client.prenom }}</td>
-            </tr>
+            {% if client.prenom is not null %}
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ client.prenom }}</td>
+                </tr>
+            {% endif %}
             <tr>
                 <th>Nom</th>
                 <td>{{ client.nom }}</td>
@@ -29,7 +35,7 @@
             </tr>
         </tbody>
     </table>
-
+    
 	<ul class="record_actions">
 		<li>
 			<a href="{{ path('client') }}">
@@ -37,7 +43,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="{{ path('client_edit', { 'id': client.id }) }}">
+			<a href="{% if client.prenom is null %}{{ path('clientpro_edit', { 'id': client.id }) }}{% else %}{{ path('client_edit', { 'id': client.id }) }}{% endif %}">
 				Éditer les informations de {{ client.prenom }} {{ client.nom }}
 			</a>
 		</li>

@@ -15,7 +15,7 @@ class QuantiteStockConsommableType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantiteRestante', null, array('label' => 'Quantité restante'))
+            ->add('quantiteRestante', null, array('label' => 'Quantité restante : '))
         ;
     }
 

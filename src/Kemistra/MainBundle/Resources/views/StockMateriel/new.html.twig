@@ -5,10 +5,10 @@
 {% block body -%}
     <h1>Ajout d'un nouveau matériel dans le stock</h1>
     
-    <pre>{{ dump(formulaire) }}</pre>
+    
     
     <form action="{{ path('stockmateriel_create') }}" method="post" {{ form_enctype(formulaire) }}>
-        {#{ form_widget(formulaire) }#}
+        {{ form_widget(formulaire) }}
         <p><button type="submit">Ajouter</button></p>
     </form>
     

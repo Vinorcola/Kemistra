@@ -11,9 +11,9 @@ class ResultatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('resultat', null, array('label' => 'Résultat'))
-            ->add('analyse', null, array('label' => 'Analyse'))
-            ->add('typeResultat', null, array('label' => 'Type de résultat'))
+            ->add('resultat', null, array('label' => 'Résultat : '))
+            ->add('analyse', null, array('label' => 'Analyse : '))
+            ->add('typeResultat', null, array('label' => 'Type de résultat : '))
         ;
     }
 

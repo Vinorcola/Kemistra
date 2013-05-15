@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Kemistra\MainBundle\Entity\Client;
 use Kemistra\MainBundle\Form\ClientType;
+use Kemistra\MainBundle\Form\ClientProType;
 
 
 
@@ -24,13 +25,16 @@ class ClientController extends Controller
     public function indexAction()
     {
         // Récupération de la liste des employés.
-        $clients = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Client')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Client');
+        $clientsParticuliers = $repository->getListeParticuliers();
+        $clientsProfessionnels = $repository->getListeProfessionels();
         
         
         
         // Génération de la vue.
         return $this->render('KemistraMainBundle:Client:index.html.twig',
-                             array('clients' => $clients));
+                             array('clientsParticuliers' => $clientsParticuliers,
+                                   'clientsProfessionnels' => $clientsProfessionnels));
     }
     
     
@@ -151,6 +155,59 @@ class ClientController extends Controller
     
     
     
+    /**
+     * Affiche le formulaire d'édition d'un employé.
+     */
+    public function editProAction($id)
+    {
+        // Récupération de l'employé.
+        $client = $this->getClient($id);
+        
+        
+        
+        // Création du formulaire.
+        $formulaire = $this->createForm(new ClientProType(), $client);
+        
+        
+        
+        // Génération de la vue.
+        return $this->render('KemistraMainBundle:Client:editpro.html.twig',
+                             array('client'    => $client,
+                                   'formulaire' => $formulaire->createView()));
+    }
+    
+    
+    
+    
+    
+    /**
+     * Édite les informations d'un employé.
+     */
+    public function updateProAction(Request $request, $id)
+    {
+        // Récupération de l'employé.
+        $client = $this->getClient($id);
+        
+        
+        
+        // Enregistrement du formulaire.
+        if ($this->saveClientPro($request, $client, $formulaire))
+        {
+            return $this->redirect($this->generateUrl('client_show', array('id' => $client->getId())));
+        }
+        else
+        {
+            // Le formulaire est invalide. Nouvel affichage du formulaire.
+            return $this->render('KemistraMainBundle:Client:editpro.html.twig',
+                                 array('client'    => $client,
+                                       'formulaire' => $formulaire->createView()));
+        }
+    }
+    
+    
+    
+    
+    
     
     
     
@@ -194,6 +251,53 @@ class ClientController extends Controller
     {
         // Création du formulaire.
         $formulaire = $this->createForm(new ClientType(), $client);
+        
+        
+        // Récupération des données POST depuis la requête.
+        $formulaire->bind($request);
+        
+        
+        // Vérification du formulaire.
+        if ($formulaire->isValid())
+        {
+            // Récupération de l'EntityManager.
+            $em = $this->getDoctrine()->getManager();
+            
+            // Recherche de la ville.
+            $ville = $em->getRepository('KemistraMainBundle:Ville')
+                        ->findOneBy(array('nom'        => $client->getVille()->getNom(),
+                                          'codePostal' => $client->getVille()->getCodePostal()));
+            
+            if ($ville)
+            {
+                // Si la ville existe, on remplace celle saisie par l'utilisateur.
+                $client->setVille($ville);
+            }
+            
+            // On enregistre le type d'analyse dans la base de données.
+            $em->persist($client);
+            $em->flush();
+            
+            return true;
+        }
+        
+        
+        return false;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Tente de sauvegarder un employé dans la base de données.
+     */
+    private function saveClientPro(Request $request,
+                                    $client,
+                                    &$formulaire)
+    {
+        // Création du formulaire.
+        $formulaire = $this->createForm(new ClientProType(), $client);
         
         
         // Récupération des données POST depuis la requête.

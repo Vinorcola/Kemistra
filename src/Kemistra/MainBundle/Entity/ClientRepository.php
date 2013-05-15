@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClientRepository extends EntityRepository
 {
+    public function getListeParticuliers()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->from($this->_entityName, 'cl')->select('cl.id, cl.nom, cl.prenom')
+                        ->where('cl.prenom IS NOT NULL');
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getListeProfessionels()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->from($this->_entityName, 'cl')->select('cl.id, cl.nom')
+                        ->where('cl.prenom IS NULL');
+        
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -11,7 +11,7 @@ class QuantiteStockMaterielType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantite', null, array('label' => 'Quantité'))
+            ->add('quantite', null, array('label' => 'Quantité : '))
         ;
     }
 

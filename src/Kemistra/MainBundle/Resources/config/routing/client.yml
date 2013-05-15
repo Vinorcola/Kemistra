@@ -23,3 +23,12 @@ client_update:
     pattern:  /{id}/mise-a-jour-des-informaitons
     defaults: { _controller: "KemistraMainBundle:Client:update" }
     requirements: { _method: post|put }
+
+clientpro_edit:
+    pattern:  /{id}/edition-des-informations-d-un-client-pro
+    defaults: { _controller: "KemistraMainBundle:Client:editPro" }
+
+clientpro_update:
+    pattern:  /{id}/mise-a-jour-des-informaitons-d-un-client-pro
+    defaults: { _controller: "KemistraMainBundle:Client:updatePro" }
+    requirements: { _method: post|put }

@@ -11,11 +11,11 @@ class EmployeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', null, array('label' => 'Nom'))
-            ->add('prenom', null, array('label' => 'Prénom'))
-            ->add('adresse', null, array('label' => 'Adresse'))
-            ->add('telephone', null, array('label' => 'Téléphone'))
-            ->add('email', null, array('label' => 'Email'))
+            ->add('nom', null, array('label' => 'Nom : '))
+            ->add('prenom', null, array('label' => 'Prénom : '))
+            ->add('adresse', null, array('label' => 'Adresse : '))
+            ->add('telephone', null, array('label' => 'Téléphone : '))
+            ->add('email', null, array('label' => 'Email : '))
             ->add('ville', new VilleType(), array('label' => ' '))
         ;
     }

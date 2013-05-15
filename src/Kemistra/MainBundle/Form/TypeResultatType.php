@@ -11,9 +11,9 @@ class TypeResultatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('unite', null, array('label' => 'Unité',
+            ->add('unite', null, array('label' => 'Unité : ',
                                        'required' => false))
-            ->add('information', null, array('label' => 'Information concernant le résultat'))
+            ->add('information', null, array('label' => 'Information concernant le résultat : '))
         ;
     }
 

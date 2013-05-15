@@ -15,9 +15,8 @@ class TypeMaterielType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', null, array('label' => 'Nom'))
-            ->add('description', null, array('label' => 'Description',
-                                             'required' => false))
+            ->add('nom', null, array('label' => 'Nom : '))
+            ->add('description', null, array('label' => 'Description : '))
         ;
     }
 

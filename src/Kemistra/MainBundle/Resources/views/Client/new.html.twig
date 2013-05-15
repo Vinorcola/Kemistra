@@ -21,3 +21,26 @@
 		</li>
 	</ul>
 {% endblock %}
+
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('form').prepend('<label>Type de client :</label> <label><input type="radio" name="t" id="particulier" checked /> Particulier</label> <label><input type="radio" name="t" /> Professionnel</label>');
+        
+        $('[name="t"]').change(function() {
+            if ($('#particulier').is(":checked"))
+            {
+                $('#kemistra_mainbundle_clienttype_prenom').parent().show();
+            }
+            else
+            {
+                $('#kemistra_mainbundle_clienttype_prenom').val('');
+                $('#kemistra_mainbundle_clienttype_prenom').parent().hide();
+            }
+        });
+    });
+</script>
+{% endblock %}

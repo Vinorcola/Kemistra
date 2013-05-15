@@ -11,11 +11,11 @@ class AnalyseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', 'date', array('label' => 'Date',
+            ->add('date', 'date', array('label' => 'Date : ',
                                         'years' => range(date('Y') - 5, date('Y'))))
-            ->add('client', null, array('label' => 'Client'))
-            ->add('employes', null, array('label' => 'Employés'))
-            ->add('typeAnalyse', null, array('label' => 'Type d\'analyse'))
+            ->add('client', null, array('label' => 'Client : '))
+            ->add('employes', null, array('label' => 'Employés : '))
+            ->add('typeAnalyse', null, array('label' => 'Type d\'analyse : '))
         ;
     }
 
