@@ -1,11 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends '::form_base.html.twig' %}
 
 {% block body -%}
     <h1>Analyse edit</h1>
 
-    <form action="{{ path('analyse_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form action="{{ path('analyse_update', { 'id': analyse.id }) }}" method="post" {{ form_enctype(formulaire) }}>
         <input type="hidden" name="_method" value="PUT" />
-        {{ form_widget(edit_form) }}
+        {{ form_widget(formulaire) }}
         <p>
             <button type="submit">Edit</button>
         </p>
@@ -17,12 +17,10 @@
             Back to the list
         </a>
     </li>
-    <li>
-        <form action="{{ path('analyse_delete', { 'id': entity.id }) }}" method="post">
-            <input type="hidden" name="_method" value="DELETE" />
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
 </ul>
 {% endblock %}
+
+
+
+{% block jsInclude %}{{ parent() }}
+<script src="{{ asset('bundles/kemistramain/js/subFormManager.js') }}"></script>{% endblock %}

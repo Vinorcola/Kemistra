@@ -1,10 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends '::form_base.html.twig' %}
 
 {% block body -%}
     <h1>Analyse creation</h1>
 
-    <form action="{{ path('analyse_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
+    <form action="{{ path('analyse_create') }}" method="post" {{ form_enctype(formulaire) }}>
+        {{ form_widget(formulaire) }}
         <p>
             <button type="submit">Create</button>
         </p>
@@ -18,3 +18,25 @@
     </li>
 </ul>
 {% endblock %}
+
+
+
+{% block jsInclude %}{{ parent() }}
+<script src="{{ asset('bundles/kemistramain/js/subFormManager.js') }}"></script>{% endblock %}
+
+
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        addResultatSubForm($('div#kemistra_mainbundle_analysetype_resultats'), 0, 'Masse', 'g', 4);
+        addResultatSubForm($('div#kemistra_mainbundle_analysetype_resultats'), 1, 'Volume', 'mL', 5);
+        
+        addConsommableSubForm($('div#kemistra_mainbundle_analysetype_consommables'), 0, 'Eau déminée', 'mL', 7);
+        addConsommableSubForm($('div#kemistra_mainbundle_analysetype_consommables'), 1, 'HCl', 'mL', 15);
+        addConsommableSubForm($('div#kemistra_mainbundle_analysetype_consommables'), 2, 'Diiode 15%', 'mL', 17);
+    });
+</script>
+{% endblock %}
+

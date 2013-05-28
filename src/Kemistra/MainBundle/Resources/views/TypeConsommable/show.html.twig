@@ -19,7 +19,7 @@
             {% for stock in typeConsommable %}
                 <tr>
                     <td>{{ stock.numeroLot }}</td>
-                    <td>{{ stock.quantiteRestante }}<br /><span class="negligeable">/ {{ stock.quantiteAchetee }}</span></td>
+                    <td>{{ stock.quantiteRestante }} <span class="unite">{{ stock.unite }}</span><br /><span class="negligeable">/ {{ stock.quantiteAchetee }}</span></td>
                     <td>{{ stock.datePeremption|date('d/m/Y') }}</td>
                     <td class="icone">
                         <a title="Éditer" href="{{ path('stockconsommable_edit', { 'id': stock.idStock }) }}">

@@ -6,24 +6,25 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ResultatType extends AbstractType
+class AnalyseSelectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('resultat', null, array('label' => '__result_label__ : '))
+            ->add('client', null, array('label' => 'Client : '))
+            ->add('typeAnalyse', null, array('label' => 'Type d\'analyse : '))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Kemistra\MainBundle\Entity\Resultat'
+            'data_class' => 'Kemistra\MainBundle\Entity\Analyse'
         ));
     }
 
     public function getName()
     {
-        return 'kemistra_mainbundle_resultattype';
+        return 'kemistra_mainbundle_analyseselecttype';
     }
 }

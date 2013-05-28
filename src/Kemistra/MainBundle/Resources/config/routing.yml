@@ -1,4 +1,4 @@
-kemistra_main_homepage:
+homepage:
     pattern:  /
     defaults: { _controller: KemistraMainBundle:Default:index }
 

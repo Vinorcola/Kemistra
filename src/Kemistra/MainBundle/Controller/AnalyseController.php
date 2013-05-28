@@ -6,11 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Kemistra\MainBundle\Entity\Analyse;
+use Kemistra\MainBundle\Entity\Resultat;
+use Kemistra\MainBundle\Form\AnalyseSelectType;
 use Kemistra\MainBundle\Form\AnalyseType;
+
+
+
+
 
 /**
  * Analyse controller.
- *
  */
 class AnalyseController extends Controller
 {
@@ -21,12 +26,37 @@ class AnalyseController extends Controller
     {
 		// Récupération de la liste des analyses.
         $analyses = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Analyse')->findAll();
-
+        
 		// Génération de la vue.
         return $this->render('KemistraMainBundle:Analyse:index.html.twig', 
 							array('analyses' => $analyses));
     }
-
+    
+    
+    
+    
+    
+    /**
+     * Affiche le formulaire de sélection du type d'analyse.
+     */
+    public function newAction()
+    {
+		// Création de l'entité.
+        $analyse = new Analyse();
+        
+        
+        // Création du formulaire
+        $formulaire = $this->createForm(new AnalyseSelectType(), $analyse);
+        
+		// Génération de la vue.
+        return $this->render('KemistraMainBundle:Analyse:new.html.twig', 
+							 array('formulaire' => $formulaire->createView()));
+    }
+    
+    
+    
+    
+    
     /**
      * Ajoute une nouvelle analyse.
      */
@@ -38,7 +68,7 @@ class AnalyseController extends Controller
 		// Enregistrement du formulaire.
         if ($this->saveAnalyse($request, $analyse, $formulaire)) 
 		{
-            return $this->redirect($this->generateUrl('analyse_show', array('id' => $analyse->getId())));
+            return $this->redirect($this->generateUrl('analyse_edit', array('id' => $analyse->getId())));
         }
 		else
 		{
@@ -47,21 +77,11 @@ class AnalyseController extends Controller
 								array('formulaire' => $formulaire->createView()));
 		}
     }
-
-    /**
-     * Affiche le formulaire d'ajout d'une nouvelle analyse.
-     */
-    public function newAction()
-    {
-		// Création de l'entité et du formulaire.
-        $analyse = new Analyse();
-        $formulaire = $this->createForm(new AnalyseType(), $analyse);
-
-		// Génération de la vue.
-        return $this->render('KemistraMainBundle:Analyse:new.html.twig', 
-							array('formulaire' => $formulaire->createView()));
-    }
-
+    
+    
+    
+    
+    
     /**
      * Affiche les informations concernant une analyse.
      */
@@ -71,7 +91,11 @@ class AnalyseController extends Controller
         return $this->render('KemistraMainBundle:Analyse:show.html.twig', 
 							array('analyse' => $this->getAnalyse($id)));
     }
-
+    
+    
+    
+    
+    
     /**
      * Affiche le formulaire d'édition d'une analyse.
      */
@@ -79,16 +103,20 @@ class AnalyseController extends Controller
     {
 		// Récupération de l'analyse.
         $analyse = $this->getAnalyse($id);
-
+        
 		// Création du formulaire.
         $formulaire = $this->createForm(new AnalyseType(), $analyse);
-
+        
 		// Génération de la vue.
         return $this->render('KemistraMainBundle:Analyse:edit.html.twig', 
 							array('analyse' 	 => $analyse,
 								  'formulaire'   => $formulaire->createView()));
     }
-
+    
+    
+    
+    
+    
     /**
      * Édite les informations d'une analyse.
      */
@@ -110,7 +138,11 @@ class AnalyseController extends Controller
                                        'formulaire' => $formulaire->createView()));
         }
     }
-
+    
+    
+    
+    
+    
     /**
      * Récupère une analyse depuis la base de données grâce à son id.
      */
@@ -128,7 +160,11 @@ class AnalyseController extends Controller
         // Renvoie de l'analyse.
         return $analyse;
     }
-
+    
+    
+    
+    
+    
     /**
      * Tente de sauvegarder une analyse dans la base de données.
      */
@@ -137,7 +173,7 @@ class AnalyseController extends Controller
                                  &$formulaire)
     {
         // Création du formulaire.
-        $formulaire = $this->createForm(new AnalyseType(), $analyse);
+        $formulaire = $this->createForm(new AnalyseSelectType(), $analyse);
         
         // Récupération des données POST depuis la requête.
         $formulaire->bind($request);
@@ -148,13 +184,25 @@ class AnalyseController extends Controller
             // Récupération de l'EntityManager.
             $em = $this->getDoctrine()->getManager();
             
+            // Création des entités résultat.
+            $typesResultats = $analyse->getTypeAnalyse()->getTypeResultats();
+            foreach ($typesResultats as $typeResultat)
+            {
+                $resultat = new Resultat();
+                $resultat->setResultat(0);
+                $resultat->setAnalyse($analyse);
+                $resultat->setTypeResultat($typeResultat);
+                
+                $em->persist($resultat);
+            }
+            
             // On enregistre le type d'analyse dans la base de données.
             $em->persist($analyse);
             $em->flush();
             
             return true;
         }
-
+        
         return false;
     }
 }

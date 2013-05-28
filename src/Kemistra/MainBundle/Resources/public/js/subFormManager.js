@@ -77,3 +77,55 @@ function manageSubForm($element)
 }
 
 
+
+
+
+function addResultatSubForm($element,
+                            numero,
+                            label,
+                            unite,
+                            typeResultat)
+{
+    // Création du prototype.
+    // Récupération du contenu de l'attribut data-prototype et remplacement des chaînes necessaires.
+    var $prototype = $($element.attr('data-prototype').replace(/__name__label__/g, '')
+                                                      .replace(/__name__/g, numero)
+                                                      .replace(/__result_label__/g, label));
+    
+    // Ajout du prototype à la fin de l'élément.
+    $element.append($prototype);
+    
+    // Ajout du type de résultat.
+    $('input#kemistra_mainbundle_analysetype_resultats_' + numero).val(typeResultat);
+    
+    // Ajout de l'unité.
+    $('div#kemistra_mainbundle_analysetype_resultats_' + numero + ' > div').append('<span class="unite">' + unite + '</span>');
+}
+
+
+
+
+
+function addConsommableSubForm($element,
+                               numero,
+                               label,
+                               unite,
+                               typeConsommable)
+{
+    // Création du prototype.
+    // Récupération du contenu de l'attribut data-prototype et remplacement des chaînes necessaires.
+    var $prototype = $($element.attr('data-prototype').replace(/__name__label__/g, '')
+                                                      .replace(/__name__/g, numero)
+                                                      .replace(/__consom_label__/g, label));
+    
+    // Ajout du prototype à la fin de l'élément.
+    $element.append($prototype);
+    
+    // Ajout du type de résultat.
+    $('input#kemistra_mainbundle_analysetype_consommables_' + numero).val(typeConsommable);
+    
+    // Ajout de l'unité.
+    $('div#kemistra_mainbundle_analysetype_consommables_' + numero + ' > div').append('<span class="unite">' + unite + '</span>');
+}
+
+

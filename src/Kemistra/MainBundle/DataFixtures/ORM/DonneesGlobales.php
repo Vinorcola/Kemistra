@@ -15,6 +15,23 @@ class DonneesGlobales implements FixtureInterface
 {
     public function load(ObjectManager $em)
     {
+        $objet = new Entity();
+        $objet->setAttribut($valeur);
+        
+        
+        $o1 = new CaracEntreprise();
+        $o2 = new CaracEntreprise();
+        
+        $ent = new Entreprise();
+        
+        $ent->addCaracteristiqueEntreprise($o1);
+        $ent->addCaracteristiqueEntreprise($o2);
+        
+        
+        
+        
+        
+        
         // Les types de matériel
         $d['entonnoirVerre'] = new TypeMateriel();
         $d['entonnoirVerre']->setNom('Entonoir de verre');
@@ -78,6 +95,7 @@ class DonneesGlobales implements FixtureInterface
         // Les types d'analyses
         $d['so2_libre'] = new TypeAnalyse();
         $d['so2_libre']->setNom('Dosage du SO2 Libre');
+        ->addTypeMateriel(
         
         
         
@@ -93,7 +111,7 @@ class DonneesGlobales implements FixtureInterface
         
         
         
-        foreach ($d as$e)
+        foreach ($d as $e)
         {
             $em->persist($e);
         }

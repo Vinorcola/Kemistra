@@ -52,7 +52,6 @@ class Analyse
     
     /**
      * @ORM\OneToMany(targetEntity="Resultat", mappedBy="analyse")
-     * @Assert\Valid()
      */
     private $resultats;
     
@@ -60,9 +59,15 @@ class Analyse
     
     /**
      * @ORM\ManyToOne(targetEntity="TypeAnalyse", inversedBy="analyes")
-     * @Assert\Valid()
      */
     private $typeAnalyse;
+    
+    
+    
+    /**
+     * Champs qui détermine la quantité de consommables utilisés.
+     */
+    private $consommables;
     
     
     
@@ -73,6 +78,7 @@ class Analyse
         $this->date = new \DateTime();
         $this->employes = new ArrayCollection();
         $this->resultats = new ArrayCollection();
+        $this->consommables = new ArrayCollection();
     }
     
     
@@ -270,5 +276,50 @@ class Analyse
     public function getTypeAnalyse()
     {
         return $this->typeAnalyse;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Add consommables
+     *
+     * @param integer $consommables
+     * @return Analyse
+     */
+    public function addConsommable($consommables)
+    {
+        $this->consommables[] = $consommables;
+    
+        return $this;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Remove consommables
+     *
+     * @param integer $consommables
+     */
+    public function removeConsommable($consommables)
+    {
+        $this->consommables->removeElement($consommables);
+    }
+    
+    
+    
+    
+    
+    /**
+     * Get consommables
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getConsommables()
+    {
+        return $this->consommables;
     }
 }
