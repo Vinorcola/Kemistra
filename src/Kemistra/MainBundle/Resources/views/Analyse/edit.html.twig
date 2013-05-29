@@ -1,26 +1,49 @@
 {% extends '::form_base.html.twig' %}
 
+{% block titre %}Éditer les résultats d'une analyse{% endblock %}
+
 {% block body -%}
-    <h1>Analyse edit</h1>
+    <h1>Éditer les résultats d'une analyse</h1>
 
     <form action="{{ path('analyse_update', { 'id': analyse.id }) }}" method="post" {{ form_enctype(formulaire) }}>
         <input type="hidden" name="_method" value="PUT" />
         {{ form_widget(formulaire) }}
         <p>
-            <button type="submit">Edit</button>
+            <button class="btn" type="submit">Enregistrer</button>
         </p>
     </form>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('analyse') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('analyse_show', { 'id': analyse.id }) }}">Annuler l'édition des résultats de l'analyse</a>.</li>
+{% endblock %}
+
+
 
 
 
 {% block jsInclude %}{{ parent() }}
 <script src="{{ asset('bundles/kemistramain/js/subFormManager.js') }}"></script>{% endblock %}
+
+
+
+
+
+{% block js %}{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#kemistra_mainbundle_analysetype_resultats > div > label').hide();
+        {% set compteur=0 %}
+        {% for resultat in analyse.resultats %}
+            $('#kemistra_mainbundle_analysetype_resultats_{{ compteur }}_resultat').parent().prev().text('{{ resultat.typeResultat.information|escape('js') }} : ');
+            $('#kemistra_mainbundle_analysetype_resultats_{{ compteur }}_resultat').parent().append(' <span class="unite"> {{ resultat.typeResultat.unite|escape('js')}}</span>');
+            {% set compteur=compteur+1 %}
+        {% endfor %}
+    });
+</script>
+{% endblock %}

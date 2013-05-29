@@ -5,29 +5,16 @@
 {% block body -%}
     <h1>Liste des clients particuliers</h1>
 
-    <table class="records_list table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
-				<th>Prénom</th>
                 <th>Nom</th>
-				<th colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for client in clientsParticuliers %}
             <tr>
-				<td>{{ client.prenom }}</td>
-                <td>{{ client.nom }}</td>
-                <td class="icone">
-					<a title="Détail" href="{{ path('client_show', { 'id': client.id }) }}">
-						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
-					</a>
-				</td>
-				<td class="icone">
-					<a title="Éditer" href="{{ path('client_edit', { 'id': client.id }) }}">
-						<img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
-					</a> 
-                </td>
+                <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.nom }} {{ client.prenom }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -36,38 +23,27 @@
     
     
     <h1>Liste des clients professionnels</h1>
-
-    <table class="records_list table table-bordered table-striped table-condensed">
+    
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Nom</th>
-				<th colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for client in clientsProfessionnels %}
             <tr>
-                <td>{{ client.nom }}</td>
-                <td class="icone">
-					<a title="Détail" href="{{ path('client_show', { 'id': client.id }) }}">
-						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
-					</a>
-				</td>
-				<td class="icone">
-					<a title="Éditer" href="{{ path('clientpro_edit', { 'id': client.id }) }}">
-						<img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
-					</a> 
-                </td>
+                <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.nom }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('client_new') }}">
-                Ajouter un nouveau client
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('client_new') }}">Ajouter un nouveau client</a>.</li>
+{% endblock %}

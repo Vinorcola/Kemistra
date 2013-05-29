@@ -3,9 +3,22 @@
 {% block titre %}Kemistra - Accueil{% endblock %}
 
 {% block body -%}
-    <h1>Kemistra - Accueil</h1>
+    <h1>Bienvenue sur Kemistra</h1>
     
-    
-    
-    <p>Accueil de l'application (page de donnection.</p>
+    <p class="intro"><strong>Kemistra</strong> est une application de gestion de la traçabilité d'un laboratoire d'analyse.</p>
+    {% if not is_granted('ROLE_USER') %}
+        <p class="intro"><a href="{{ path('login') }}">Connectez-vous</a> dès à présent pour utiliser l'application.</p>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    {% if not is_granted('ROLE_USER') %}
+        <li><a href="{{ path('login') }}">Connexion à Kemistra</a>.</li>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
 {% endblock %}

@@ -62,7 +62,7 @@ class StockConsommable
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="TypeConsommable", inversedBy="stockConsommable", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TypeConsommable", inversedBy="stockConsommables", cascade={"persist"})
      * @Assert\Valid()
      */
     private $typeConsommable;

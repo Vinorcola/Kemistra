@@ -5,37 +5,30 @@
 {% block body -%}
     <h1>Liste des types d'analyse disponibles</h1>
     
-    
-    
-    <table class="records_list table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Nom</th>
-				<th colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for typeAnalyse in typeAnalyses %}
             <tr>
                 <td><a href="{{ path('typeanalyse_show', { 'id': typeAnalyse.id }) }}">{{ typeAnalyse.nom }}</a></td>
-                <td class="icone">
-					<a title="Détail" href="{{ path('typeanalyse_show', { 'id': typeAnalyse.id }) }}">
-						<img  src="{{ asset('bundles/kemistramain/images/detail.svg') }}" alt="Détail"/>
-					</a>
-				</td>
-				<td class="icone">
-					<a title="Éditer" href="{{ path('typeanalyse_edit', { 'id': typeAnalyse.id }) }}">
-						<img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
-					</a> 
-                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    
-    
-    
-    <ul>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    {% if is_granted('ROLE_ADMIN') %}
         <li><a href="{{ path('typeanalyse_new') }}">Ajouter un nouveau type d'analyse</a>.</li>
-    </ul>
-    {% endblock %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

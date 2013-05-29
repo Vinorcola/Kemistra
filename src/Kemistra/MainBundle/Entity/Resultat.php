@@ -28,7 +28,7 @@ class Resultat
     
     
     /**
-     * @ORM\Column(name="resultat", type="decimal")
+     * @ORM\Column(name="resultat", type="decimal", precision=5, scale=2)
      * @Assert\NotNull()
      */
     private $resultat;

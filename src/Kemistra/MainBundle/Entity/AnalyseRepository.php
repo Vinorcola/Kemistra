@@ -4,6 +4,10 @@ namespace Kemistra\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+
+
+
+
 /**
  * AnalyseRepository
  *
@@ -12,4 +16,51 @@ use Doctrine\ORM\EntityRepository;
  */
 class AnalyseRepository extends EntityRepository
 {
+    public function getAllByEmploye($idEmploye)
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'a')->select('a')
+                         ->join('a.typeAnalyse', 'ta')->addSelect('ta')
+                         ->join('a.employes', 'e')
+                         ->where('e.id = :id')
+                         ->orderBy('a.date', 'DESC')
+                         
+                         ->setParameter('id', $idEmploye)
+                         
+                         ->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getAll()
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'a')->select('a')
+                         ->join('a.typeAnalyse', 'ta')->addSelect('ta')
+                         ->orderBy('a.date', 'DESC')
+                         
+                         ->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getOneDetails($id)
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'a')->select('a')
+                         ->join('a.typeAnalyse', 'ta')->addSelect('ta')
+                         ->join('a.client', 'c')->addSelect('c')
+                         ->join('a.employes', 'e')->addSelect('e')
+                         ->join('a.resultats', 'r')->addSelect('r')
+                         ->join('r.typeResultat', 'tr')->addSelect('tr')
+                         ->where('a.id = :id')
+                         
+                         ->setParameter('id', $id)
+                         
+                         ->getQuery()->getSingleResult();
+    }
 }

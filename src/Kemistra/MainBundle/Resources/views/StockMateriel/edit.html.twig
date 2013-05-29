@@ -5,16 +5,16 @@
 {% block body -%}
     <h1>Édition de la quantité de {{ stockMateriel.typeMateriel.nom }} en stock</h1>
     
-    
-    
     <form action="{{ path('stockmateriel_update', { 'id': stockMateriel.id }) }}" method="post" {{ form_enctype(formulaire) }}>
         {{ form_widget(formulaire) }}
-        <p><button type="submit">Enregistrer</button></p>
+        <p><button class="btn" type="submit">Enregistrer</button></p>
     </form>
-    
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('stockmateriel_show', { 'id': stockMateriel.typeMateriel.id }) }}">Annuler l'édition</a>.</li>
-    </ul>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('stockmateriel_show', { 'id': stockMateriel.typeMateriele.id }) }}">Annuler l'édition</a>.</li>
 {% endblock %}

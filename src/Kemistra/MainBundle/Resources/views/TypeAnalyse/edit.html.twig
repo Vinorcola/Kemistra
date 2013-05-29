@@ -5,21 +5,46 @@
 {% block body -%}
     <h1>Édition des informations de l'analyse {{ typeAnalyse.nom }}</h1>
     
-    
-    
     <form action="{{ path('typeanalyse_update', { 'id': typeAnalyse.id }) }}" method="post" {{ form_enctype(formulaire) }}>
         <input type="hidden" name="_method" value="PUT" />
-        {{ form_widget(formulaire) }}
-        <p><button type="submit">Enregistrer</button></p>
+        {{ form_errors(formulaire) }}
+        <fieldset>
+            <legend>Informations de l'analyse</legend>
+            {{ form_row(formulaire.nom) }}
+            {{ form_row(formulaire.dureeEstimee) }}
+            {{ form_row(formulaire.nombreEmployeNecessaire) }}
+            {{ form_row(formulaire.description) }}
+            {{ form_row(formulaire.fichier) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Les résultats à obtenir</legend>
+            {{ form_row(formulaire.typeResultats) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Le matériel à utiliser</legend>
+            {{ form_row(formulaire.utilise) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Les consommables à obtenir</legend>
+            {{ form_row(formulaire.typeConsommables) }}
+        </fieldset>
+        {{ form_rest(formulaire) }}
+        <p><button class="btn" type="submit">Enregistrer</button></p>
     </form>
-    
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('typeanalyse_show', { 'id': typeAnalyse.id }) }}">Annuler l'édition</a>.</li>
-    </ul>
-</ul>
 {% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('typeanalyse_show', { 'id': typeAnalyse.id }) }}">Annuler l'édition</a>.</li>
+{% endblock %}
+
+
 
 
 
@@ -28,7 +53,9 @@
 
 
 
-{% block js %}
+
+
+{% block js %}{{ parent() }}
 <script type="text/javascript">
     $(document).ready(function()
     {

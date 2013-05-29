@@ -13,7 +13,10 @@ class StockMaterielType extends AbstractType
         $builder
             ->add('typeMateriel', null, array('label' => 'Type de matériel : '))
             ->add('quantite', null, array('label' => 'Quantité : '))
-            ->add('dateAchat', null, array('label' => 'Date d\'achat : '))
+            ->add('dateAchat', null, array('label' => 'Date d\'achat : ',
+                                           'widget' => 'single_text',
+                                           'format' => 'dd/MM/yyy',
+                                           'attr' => array('class' => 'calendrier')))
         ;
     }
 

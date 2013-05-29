@@ -14,11 +14,12 @@ class ClientRepository extends EntityRepository
 {
     public function getListeParticuliers()
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->from($this->_entityName, 'cl')->select('cl.id, cl.nom, cl.prenom')
-                        ->where('cl.prenom IS NOT NULL');
-        
-        return $qb->getQuery()->getResult();
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'cl')->select('cl.id, cl.nom, cl.prenom')
+                         ->where('cl.prenom IS NOT NULL')
+                         ->orderBy('cl.nom, cl.prenom')
+                         
+                         ->getQuery()->getResult();
     }
     
     
@@ -27,10 +28,30 @@ class ClientRepository extends EntityRepository
     
     public function getListeProfessionels()
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->from($this->_entityName, 'cl')->select('cl.id, cl.nom')
-                        ->where('cl.prenom IS NULL');
-        
-        return $qb->getQuery()->getResult();
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'cl')->select('cl.id, cl.nom')
+                         ->where('cl.prenom IS NULL')
+                         ->orderBy('cl.nom, cl.prenom')
+                         
+                         ->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getOneDetails($id)
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'c')->select('c')
+                         ->join('c.ville', 'v')->addSelect('v')
+                         ->leftJoin('c.analyses', 'a')->addSelect('a')
+                         ->leftJoin('a.typeAnalyse', 'ta')->addSelect('ta')
+                         ->where('c.id = :id')
+                         ->orderBy('a.date', 'DESC')
+                         
+                         ->setParameter('id', $id)
+                         
+                         ->getQuery()->getSingleResult();
     }
 }

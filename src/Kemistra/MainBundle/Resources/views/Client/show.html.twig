@@ -9,18 +9,18 @@
         <h1>{{ client.prenom }} {{ client.nom }}</h1>
     {% endif %}
     
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ client.nom }}</td>
+            </tr>
             {% if client.prenom is not null %}
                 <tr>
                     <th>Prénom</th>
                     <td>{{ client.prenom }}</td>
                 </tr>
             {% endif %}
-            <tr>
-                <th>Nom</th>
-                <td>{{ client.nom }}</td>
-            </tr>
             <tr>
                 <th>Adresse</th>
                 <td>{{ client.adresse }}<br />{{ client.ville.codePostal }} {{ client.ville.nom }}</td>
@@ -36,16 +36,33 @@
         </tbody>
     </table>
     
-	<ul class="record_actions">
-		<li>
-			<a href="{{ path('client') }}">
-				Retour à la liste des clients
-			</a>
-		</li>
-		<li>
-			<a href="{% if client.prenom is null %}{{ path('clientpro_edit', { 'id': client.id }) }}{% else %}{{ path('client_edit', { 'id': client.id }) }}{% endif %}">
-				Éditer les informations de {{ client.prenom }} {{ client.nom }}
-			</a>
-		</li>
-    </ul>
+    
+    
+    <h2>Les analyses réalisées pour ce client</h2>
+    
+    <table class="table table-bordered tableau">
+        <thead>
+            <th>Type d'analyse</th>
+            <th>date</th>
+        </thead>
+        <tbody>
+            {% for analyse in client.analyses %}
+                <tr>
+                    <td><a href="{{ path('analyse_show', { 'id': analyse.id }) }}">{{ analyse.typeAnalyse.nom }}</a></td>
+                    <td>{% if analyse.date %}{{ analyse.date|date('d/m/Y') }}{% endif %}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">Aucune analyse.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('client') }}">Retourner à la liste des clients</a>.</li>
+    <li><a href="{% if client.prenom is null %}{{ path('clientpro_edit', { 'id': client.id }) }}{% else %}{{ path('client_edit', { 'id': client.id }) }}{% endif %}">Éditer les informations de {{ client.prenom }} {{ client.nom }}</a>.</li>
 {% endblock %}

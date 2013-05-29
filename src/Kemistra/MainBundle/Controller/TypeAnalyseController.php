@@ -4,6 +4,7 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Kemistra\MainBundle\Entity\TypeAnalyse;
 use Kemistra\MainBundle\Form\TypeAnalyseType;
@@ -15,12 +16,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TypeAnalyse controller.
- *
  */
 class TypeAnalyseController extends Controller
 {
     /**
      * Affiche la liste des types d'analyses disponibles.
+     * @Secure(roles="ROLE_USER")
      */
     public function indexAction()
     {
@@ -39,6 +40,7 @@ class TypeAnalyseController extends Controller
     
     /**
      * Ajoute un nouveau type d'analyse.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -65,6 +67,7 @@ class TypeAnalyseController extends Controller
     
     /**
      * Affiche le formulaire d'ajout d'un type d'analyse.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -84,12 +87,24 @@ class TypeAnalyseController extends Controller
     
     /**
      * Affiche les informations concernant un type d'analyse.
+     * @Secure(roles="ROLE_USER")
      */
     public function showAction($id)
     {
+        // Récupération du type d'analyse.
+        $typeAnalyse = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:TypeAnalyse')->getDetails($id);
+        
+        
+        // Si le type d'analyse n'existe pas, génération d'une erreur 404.
+        if (!$typeAnalyse)
+        {
+            throw $this->createNotFoundException('Impossible de trouver le type d\'analyse.');
+        }
+        
+        
         // Génération de la vue.
         return $this->render('KemistraMainBundle:TypeAnalyse:show.html.twig',
-                             array('typeAnalyse' => $this->getTypeAnalyse($id)));
+                             array('typeAnalyse' => $typeAnalyse));
     }
     
     
@@ -98,6 +113,7 @@ class TypeAnalyseController extends Controller
     
     /**
      * Affiche le formulaire d'édition d'un type d'analyse.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -121,6 +137,7 @@ class TypeAnalyseController extends Controller
     
     /**
      * Édite les informations d'un type d'analyse.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {

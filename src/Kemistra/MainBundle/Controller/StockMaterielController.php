@@ -4,6 +4,7 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Kemistra\MainBundle\Entity\StockMateriel;
 use Kemistra\MainBundle\Form\StockMaterielType;
@@ -16,12 +17,12 @@ use Kemistra\MainBundle\Form\QuantiteStockMaterielType;
 
 /**
  * StockMateriel controller.
- *
  */
 class StockMaterielController extends Controller
 {
     /**
      * Affiche le formulaire d'ajout d'un matériel dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -41,6 +42,7 @@ class StockMaterielController extends Controller
     
     /**
      * Ajoute un matériel dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -67,6 +69,7 @@ class StockMaterielController extends Controller
     
     /**
      * Affiche le formulaire d'ajout d'un matériel de nouveau type dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newTypeMaterielAction()
     {
@@ -86,6 +89,7 @@ class StockMaterielController extends Controller
     
     /**
      * Ajoute un matériel de nouveau type dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createTypeMaterielAction(Request $request)
     {
@@ -112,6 +116,7 @@ class StockMaterielController extends Controller
     
     /**
      * Affiche le formulaire d'édition de la quantité de matériel en stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editQuantiteAction($id)
     {
@@ -137,6 +142,7 @@ class StockMaterielController extends Controller
     
     /**
      * Édite la quantité de matériel en stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateQuantiteAction(Request $request, $id)
     {

@@ -16,7 +16,9 @@ class StockConsommableType extends AbstractType
             ->add('quantiteAchetee', null, array('label' => 'Quantité achetée : '))
             ->add('quantiteRestante', null, array('label' => 'Quantité restante : '))
             ->add('datePeremption', null, array('label' => 'Date de péremption : ',
-                                                  'widget' => 'single_text'))
+                                                'widget' => 'single_text',
+                                                'format' => 'dd/MM/yyy',
+                                                'attr' => array('class' => 'calendrier')))
         ;
     }
 

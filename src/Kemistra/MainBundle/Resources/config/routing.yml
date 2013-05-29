@@ -2,6 +2,20 @@ homepage:
     pattern:  /
     defaults: { _controller: KemistraMainBundle:Default:index }
 
+login:
+    pattern:  /connexion
+    defaults: { _controller: KemistraMainBundle:Default:login }
+
+login_check:
+    pattern:  /connexion-en-cours
+
+logout:
+    pattern:  /deconnexion
+
+
+
+
+
 KemistraMainBundle_employe:
     resource: "@KemistraMainBundle/Resources/config/routing/employe.yml"
     prefix:   /gestion-des-employes
@@ -20,22 +34,10 @@ KemistraMainBundle_stockConsommable:
 
 KemistraMainBundle_typeanalyse:
     resource: "@KemistraMainBundle/Resources/config/routing/typeanalyse.yml"
-    prefix:   /liste-des-analyses-realisables
-
-
-
-
-
+    prefix:   /analyses-realisables
 
 KemistraMainBundle_analyse:
     resource: "@KemistraMainBundle/Resources/config/routing/analyse.yml"
-    prefix:   /analyse
+    prefix:   /gestion-des-analyses
 
-KemistraMainBundle_resultat:
-    resource: "@KemistraMainBundle/Resources/config/routing/resultat.yml"
-    prefix:   /resultat
-
-KemistraMainBundle_typeconsommable:
-    resource: "@KemistraMainBundle/Resources/config/routing/typeconsommable.yml"
-    prefix:   /typeconsommable
 

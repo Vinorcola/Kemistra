@@ -1,58 +1,194 @@
 
-/* Style pour les formulaires */
-form {
-	background-color: #ADD8E6;
-	/*width: 350px;*/
+/* * * * * * * * * *
+ * Style global de la page.
+ */
+body, html
+{
+    font-size: 13px;
+}
+
+.contenu2 a
+{
+    color: #284558;
+}
+
+
+
+
+
+/* * * * * * * * * *
+ * Style des formulaires.
+ */
+form
+{
+    width: 380px;
+    border: 2px solid #708FA2;
+	border-radius: 10px;
+    background-color: #A1CCDA;
 	padding: 10px;
 	margin: auto;
-	border-radius: 10px 10px 10px 10px;
+    text-align: left;
 }
 
-label
+.form_widget
 {
-	/*float: left;*/
-	/*width: 100px;*/
-	/*text-align: right;*/
-	margin: 0px;
-	line-height: 3;
-    display: inline;
+    width: 366px;
 }
 
-.table
+input, textarea, select
 {
-	margin: auto;
-	width: 500px;
+    width: 100%;
 }
 
-.table th
+.half select
 {
-	background-color: #ADD8E6;
+    width: 49%;
 }
 
-.table-striped tbody > tr:nth-child(2n+1) > th
+
+
+
+
+/* * * * * * * * * *
+ * Style des tableaux.
+ */
+.tableau
 {
-	background-color: #87CEFA;
+    width: 600px;
+    margin: auto;
+    border: 2px solid #708FA2;
+    border-radius: 6px;
 }
 
-.table td, .table th
+.tableau th
 {
-	text-align: center;
-	vertical-align: middle;
+	background-color: #A1CCDA;
+    text-align: center;
+    vertical-align: middle;
+    border-color: #A1CCDA;
+    font-size: 14px;
 }
 
-.table .icone
+.tableau tbody th
+{
+    text-align: right;
+}
+
+.tableau td
+{
+    padding: 4px 5px;
+    background-color: #F9F9F9;
+    text-align: center;
+    vertical-align: middle;
+    border-color: #A1CCDA;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-width: 1px;
+}
+
+.tableau tbody td:nth-child(1),
+.tableau tbody th:nth-child(1)
+{
+    border: 0px;
+}
+
+.tableau tbody tr:nth-child(2n) td
+{
+    background-color: #ECECFF;
+}
+/*
+.tableau tbody tr:hover th
+{
+    background-color: #C7E1E9;
+}
+*/
+.tableau tbody tr:hover td
+{
+    background-color: #C7E1E9;
+    border-color: #C7E1E9;
+}
+
+.tableau .icone
 {
 	width: 40px;
 }
 
-.table .icone img
+.tableau .icone img
 {
 	width: 32px; 
 	height: 32px;
 }
 
+
+
+
+
+/* * * * * * * * * *
+ * Style du panel de contrôle
+ */
+.panel
+{
+    width: 400px;
+    border: 2px solid #708FA2;
+    background-color: #A1CCDA;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 6px;
+    margin: auto;
+    margin-top: 32px;
+}
+
+.panel h1
+{
+    font-size: 2em;
+    margin-left: 12px;
+    margin-top: 0px;
+}
+
+.panel ul
+{
+    font-size: 1.1em;
+}
+
+.panel li
+{
+    list-style-image: url(../images/fleche.png);
+}
+
+
+
+
+
+/* * * * * * * * * *
+ * Styles divers.
+ */
 .contenu2 .negligeable
 {
     color: #7F7F7F;
-    font-size: 11px;
+    font-size: 1em;;
 }
+
+.contenu2 .unite
+{
+    font-size: 1em;
+}
+
+.intro
+{
+    font-size: 1.4em;
+}
+
+.intro strong
+{
+    color: #3083ac;
+}
+
+#brmenu
+{
+    margin-bottom: -10px;
+}
+
+
+
+
+

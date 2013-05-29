@@ -3,28 +3,23 @@ analyse:
     defaults: { _controller: "KemistraMainBundle:Analyse:index" }
 
 analyse_show:
-    pattern:  /{id}/show
+    pattern:  /{id}/details
     defaults: { _controller: "KemistraMainBundle:Analyse:show" }
 
 analyse_new:
-    pattern:  /new
+    pattern:  /nouvelle
     defaults: { _controller: "KemistraMainBundle:Analyse:new" }
 
 analyse_create:
-    pattern:  /create
+    pattern:  /creation
     defaults: { _controller: "KemistraMainBundle:Analyse:create" }
     requirements: { _method: post }
 
 analyse_edit:
-    pattern:  /{id}/edit
+    pattern:  /{id}/edition
     defaults: { _controller: "KemistraMainBundle:Analyse:edit" }
 
 analyse_update:
-    pattern:  /{id}/update
+    pattern:  /{id}/mise-a-jour
     defaults: { _controller: "KemistraMainBundle:Analyse:update" }
     requirements: { _method: post|put }
-
-analyse_delete:
-    pattern:  /{id}/delete
-    defaults: { _controller: "KemistraMainBundle:Analyse:delete" }
-    requirements: { _method: post|delete }

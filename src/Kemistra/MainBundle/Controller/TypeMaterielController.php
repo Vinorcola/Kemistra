@@ -4,6 +4,7 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Kemistra\MainBundle\Entity\TypeMateriel;
 
@@ -13,12 +14,12 @@ use Kemistra\MainBundle\Entity\TypeMateriel;
 
 /**
  * TypeMateriel controller.
- *
  */
 class TypeMaterielController extends Controller
 {
     /**
      * Affiche le stock de matériel disponible.
+     * @Secure(roles="ROLE_USER")
      */
     public function indexAction()
     {
@@ -37,6 +38,7 @@ class TypeMaterielController extends Controller
     
     /**
      * Affiche les informations concernant un matériel en stock.
+     * @Secure(roles="ROLE_USER")
      */
     public function showAction($id)
     {

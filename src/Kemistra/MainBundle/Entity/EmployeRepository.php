@@ -4,6 +4,10 @@ namespace Kemistra\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+
+
+
+
 /**
  * EmployeRepository
  *
@@ -12,4 +16,44 @@ use Doctrine\ORM\EntityRepository;
  */
 class EmployeRepository extends EntityRepository
 {
+    public function getAllForLogin()
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'e')->select('e.nom, e.prenom, e.username')
+                         ->orderBy('e.nom, e.prenom')
+                         
+                         ->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getAll()
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'e')->select('e.id, e.nom, e.prenom')
+                         ->orderBy('e.nom, e.prenom')
+                         
+                         ->getQuery()->getResult();
+    }
+    
+    
+    
+    
+    
+    public function getOneDetails($id)
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'c')->select('c')
+                         ->join('c.ville', 'v')->addSelect('v')
+                         ->leftJoin('c.analyses', 'a')->addSelect('a')
+                         ->leftJoin('a.typeAnalyse', 'ta')->addSelect('ta')
+                         ->where('c.id = :id')
+                         ->orderBy('a.date', 'DESC')
+                         
+                         ->setParameter('id', $id)
+                         
+                         ->getQuery()->getSingleResult();
+    }
 }

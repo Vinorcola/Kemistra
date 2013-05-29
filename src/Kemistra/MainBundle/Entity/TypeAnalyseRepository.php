@@ -4,6 +4,10 @@ namespace Kemistra\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
+
+
+
+
 /**
  * TypeAnalyseRepository
  *
@@ -12,4 +16,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class TypeAnalyseRepository extends EntityRepository
 {
+    public function getDetails($id)
+    {
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'ta')->select('ta')
+                         ->join('ta.typeResultats', 'tr')->addSelect('tr')
+                         ->join('ta.utilise', 'u')->addSelect('u')
+                         ->join('u.typeMateriel', 'tm')->addSelect('tm')
+                         ->join('ta.typeConsommables', 'tc')->addSelect('tc')
+                         ->where('ta.id = :id')
+                         
+                         ->setParameter('id', $id)
+                         
+                         
+                         
+                         ->getQuery()->getSingleResult();
+    }
 }

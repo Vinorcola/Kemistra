@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block titre %}Connexion{% endblock %}
+
+{% block body -%}
+    <h1>Connexion à Kemistra</h1>
+    
+    {% if error %}
+        <div class="alert alert-error">{{ error.message }}</div>
+    {% endif %}
+    
+    <form action="{{ path('login_check') }}" method="post">
+        <div>
+            <label for="username" class="required">Nom : </label>
+            <div class="form_widget">
+                <select id="username" name="_username" required="required">
+                    {% for employe in listeEmployes %}
+                        <option value="{{ employe.username }}">{{ employe.nom }} {{ employe.prenom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div>
+            <label for="password">Mot de passe : </label>
+            <div class="form_widget">
+                <input type="password" id="password" name="_password" maxlength="255" />
+            </div>
+        </div>
+        
+        <button class="btn" type="submit">Se connecter</button>
+    </form>
+{% endblock %}

@@ -3,96 +3,94 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block titre %}Kemistra{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/kemistramain/images/favicone.ico') }}" />
 		<link href="{{ asset('bundles/kemistramain/css/bootstrap-combined.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('bundles/kemistramain/css/kitgraphique.css') }}" rel="stylesheet">
 		<link href="{{ asset('bundles/kemistramain/css/style.css') }}" rel="stylesheet">
         {% block cssInclude %}{% endblock %}
-		<script src="{{ asset('bundles/kemistramain/js/bootstrap.min.js') }}"></script>
         {% block jsInclude %}{% endblock %}
     </head>
     <body>
-		<div id="conteneur"><!-- Global -->
-			<div id="header"><!-- Header --> 
-			</div><!-- Fin Header -->  
-
-			<div id="brmenu"><!-- Fond Menu -->
+		<div id="conteneur">
+			<div id="header"></div>
+			<div id="brmenu">
 				<ul id="menu">
-					<li><a href="{{ path('typeanalyse') }}">Analyses</a>
-						<ul>
-							<li class="lien"><a href="{{ path('typeanalyse') }}">Informations</a></li>
-							<li class="lien"><a href="{{ path('analyse_new') }}">Ajouter</a></li>
-							<li class="lien"><a href="{{ path('typeanalyse_new') }}">Ajouter type</a></li>
-						</ul>
-					</li>
-
-					<li><a href="#">Stocks</a>
-						<ul>
-							<li class="lien"><a href="{{ path('stockconsommable') }}">Consommables</a></li>
-							<li class="lien"><a href="{{ path('stockmateriel') }}">Matériels</a></li>
-						</ul>
-					</li>
-
-					<li><a href="{{ path('client') }}">Clients</a>
-						<ul>
-							<li class="lien"><a href="{{ path('client') }}">Liste</a></li>
-							<li class="lien"><a href="{{ path('client_new') }}">Ajouter</a></li>
-						</ul>
-					</li>
-					  
-					<li><a href="{{ path('employe') }}">Employés</a>
-						<ul>
-							<li class="lien"><a href="{{ path('employe') }}">Liste</a></li>
-							<li class="lien"><a href="{{ path('employe_new') }}">Ajouter</a></li>
-						</ul>
-					</li>
-					  
-					<li><a href="#">Recherche</a></li>
+					<li><a href="{{ path('homepage') }}">Accueil</a>
+                        <ul>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="lien"><a href="{{ path('logout') }}">Déconnexion</a></li>
+                            {% else %}
+                                <li class="lien"><a href="{{ path('login') }}">Connexion</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('analyse') }}">Analyses</a>
+                            <ul>
+                                <li class="lien"><a href="{{ path('analyse') }}">Analyses effectuées</a></li>
+                                <li class="lien"><a href="{{ path('analyse_new') }}">Enregistrer une analyse</a></li>
+                                <li class="lien"><a href="{{ path('typeanalyse') }}">Analyses réaliseables</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="lien"><a href="{{ path('typeanalyse_new') }}">Ajouter un type d'analyse</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        
+                        <li><a href="#">Stocks</a>
+                            <ul>
+                                
+                                <li class="lien"><a href="{{ path('stockconsommable') }}">Consommables en stock</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="lien"><a href="{{ path('stockconsommable_new') }}">Ajouter un consommable</a></li>
+                                {% endif %}
+                                <li class="lien"><a href="{{ path('stockmateriel') }}">Matériels en stock</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="lien"><a href="{{ path('stockmateriel_new') }}">Ajouter un matériel</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('client') }}">Clients</a>
+                            <ul>
+                                <li class="lien2"><a href="{{ path('client') }}">Liste des clients</a></li>
+                                <li class="lien2"><a href="{{ path('client_new') }}">Ajouter un client</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="{{ path('employe') }}">Employés</a>
+                            <ul>
+                                <li class="lien2"><a href="{{ path('employe') }}">Liste des employés</a></li>
+                                <li class="lien2"><a href="{{ path('employe_new') }}">Ajouter un employé</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('employe_show', { 'id': app.user.id } ) }}">Mon compte</a></li>
+                        {% endif %}
+                    {% endif %}
 				</ul>
-			</div><!-- Fin Fond Menu -->
+			</div>
             
-            {#
-			<div class="contenu1"><!-- Contenu noir -->
-				<p> <!--
-					<img src="{{ asset('bundles/kemistramain/images/abc.png') }}" style="float:left;padding:0 10px 0 10px" alt="" />
-					<br /> 
-					<span>Informations générales :</span><br />
-					Les kits téléchargés ont été réalisés par l'équipe de kitgraphiquegratuit.org. 
-					Le site de téléchargement est : <a href="http://www.kitgraphiquegratuit.org">http://www.kitgraphiquegratuit.org</a><br /><br />
-					<span>Termes et conditions de la licence :</span><br />
-					En téléchargeant et en utilisant ce kit graphique, vous reconnaissez avoir lu et accepté les conditions d'utilisation présente sur notre site :
-					<a href="http://www.kitgraphiquegratuit.org/conditions.php">à cette adresse</a>
-					
-					
-				<div id="Espace_Membre"><!-- Espace_Membre -->	
-				<!--
-					<form action="" method="post">
-						<div> 
-							<input type="image" id="ok" src="{{ asset('bundles/kemistramain/images/go.png') }}" title="Connexion" style="float:right;padding:10px 6px 0 0"/>	
-							<div class="con1">E-mail :<input type="text" value="webmaster@votresite.com" class="champ" name="pseudo" onclick="effacer(this, 'Pseudo');" onblur="restaurer(this, 'Pseudo');" /></div>
-							<div class="con1">Mot de passe :<input type="password" name="connect_pass" class="champ" value="motdepasse" onclick="effacer(this, 'motdepasse');" onblur="restaurer(this, 'motdepasse');" /></div>
-						</div>
-					</form>
-					<p><img src="{{ asset('bundles/kemistramain/images/fleche.png') }}" alt=""/><a href="">Inscription</a> | <a href="">Mot de passe perdu?</a></p>
-				</div><!-- Fin Espace_Membre -->
-					
-					
-				</p>
-				<div class="barrec1"></div>
-			</div> <!-- Fin Contenu noir -->
-            #}
-            
-			<div class="contenu2"><!-- Contenu blanc -->
+			<div class="contenu2">
 				{% block body %}{% endblock %}
-				<div class="texte"></div><!-- Mise en forme du texte -->
-				<div class="clear"></div>
+                
+                <div class="panel">
+                    <h1>Panneau de contrôle</h1>
+                    <ul>
+                        {% block panel %}<li><a href="#">Aucune action disponible depuis cette page</a>.</li>{% endblock %}
+                    </ul>
+                </div>
+				<div class="texte"></div>
 			</div>
 			
-			<div id="pied"><!-- Pied -->
-				<div class="copyright">&copy;<a href=""> Kemistra.com</a> | Design <a href="http://www.kitgraphiquegratuit.org" onclick="window.open(this.href); return false;" title="kits graphiques gratuits" > Kit graphique</a> | <a href="http://validator.w3.org/check?uri=referer" onclick="window.open(this.href); return false;">XHTML strict</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" onclick="window.open(this.href); return false;">CSS3</a></div>
-			</div><!-- Fin Pied --> 
+			<div id="pied">
+				<div class="copyright">&copy;<a href=""> Kemistra.com</a> | Design <a href="http://www.kitgraphiquegratuit.org" onclick="window.open(this.href); return false;" title="kits graphiques gratuits" > Kit graphique</a></div>
+			</div>
   
-		</div><!-- Fin global -->
+		</div>
 		{% block js %}{% endblock %}
     </body>
 </html>

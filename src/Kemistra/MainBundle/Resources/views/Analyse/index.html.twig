@@ -1,41 +1,32 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Analyse list</h1>
+{% block titre %}Liste de toutes les analyses réalisées{% endblock %}
 
-    <table class="records_list">
+{% block body -%}
+    <h1>Liste de toutes les analyses réalisées</h1>
+    
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Type d'analyse</th>
                 <th>Date</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for analyse in analyses %}
             <tr>
-                <td><a href="{{ path('analyse_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('analyse_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('analyse_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
+                <td><a href="{{ path('analyse_show', { 'id': analyse.id }) }}">{{ analyse.typeAnalyse.nom }}</a></td>
+                <td>{% if analyse.date %}{{ analyse.date|date('d/m/Y') }}{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
 
-        <ul>
-        <li>
-            <a href="{{ path('analyse_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('analyse_new') }}">Enregistrer les résultats d'une nouvelle analyse</a>.</li>
+{% endblock %}

@@ -12,18 +12,20 @@ class AnalyseType extends AbstractType
     {
         $builder
             ->add('date', 'date', array('label' => 'Date : ',
-                                        'years' => range(date('Y') - 5, date('Y'))))
+                                        'years' => range(date('Y') - 5, date('Y')),
+                                        'widget' => 'single_text',
+                                        'format' => 'dd/MM/yyy',
+                                        'attr' => array('class' => 'calendrier')))
             ->add('employes', null, array('label' => 'Employés : ',
-                                          'multiple' => true,
-                                          'expanded' => true))
+                                          'multiple' => true))
             ->add('resultats', 'collection', array('label' => 'Résultats : ',
                                                    'type' => new ResultatType(),
                                                    'allow_add' => true,
                                                    'allow_delete' => true))
-            ->add('consommables', 'collection', array('label' => 'Consommables : ',
+            /*->add('consommables', 'collection', array('label' => 'Consommables : ',
                                                       'type' => new ConsommableType(),
                                                       'allow_add' => true,
-                                                      'allow_delete' => true));
+                                                      'allow_delete' => true));*/
         ;
     }
 

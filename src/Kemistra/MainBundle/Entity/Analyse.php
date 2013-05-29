@@ -44,7 +44,6 @@ class Analyse
     /**
      * @ORM\ManyToMany(targetEntity="Employe", inversedBy="analyses")
      * @ORM\JoinTable("Realise")
-     * @Assert\Valid()
      */
     private $employes;
     
@@ -58,7 +57,7 @@ class Analyse
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="TypeAnalyse", inversedBy="analyes")
+     * @ORM\ManyToOne(targetEntity="TypeAnalyse", inversedBy="analyses")
      */
     private $typeAnalyse;
     

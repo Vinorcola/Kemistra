@@ -5,6 +5,7 @@ namespace Kemistra\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 
@@ -16,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Kemistra\MainBundle\Entity\EmployeRepository")
  */
-class Employe
+class Employe implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -48,6 +49,34 @@ class Employe
      *                maxMessage="Le prénom doit faire au plus {{ limit }} caractères.")
      */
     private $prenom;
+    
+    
+    
+    /**
+     * @ORM\Column(name="username", type="string", length=255, unique=TRUE)
+     */
+    private $username;
+    
+    
+    
+    /**
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+    
+    
+    
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+    
+    
+    
+    /**
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles;
     
     
     
@@ -95,6 +124,8 @@ class Employe
     
     public function __construct()
     {
+        $this->salt = "";
+        $this->roles = array('ROLE_USER');
         $this->analyses = new ArrayCollection();
     }
     
@@ -125,7 +156,8 @@ class Employe
     public function setNom($nom)
     {
         $this->nom = mb_strtoupper($nom, 'UTF-8');
-    
+        $this->username = $this->stripAccents(mb_strtolower($this->prenom . '.' . $this->nom, 'UTF-8'));
+        
         return $this;
     }
     
@@ -156,7 +188,8 @@ class Employe
     public function setPrenom($prenom)
     {
         $this->prenom = ucfirst($prenom);
-    
+        $this->username = $this->stripAccents(mb_strtolower($this->prenom . '.' . $this->nom, 'UTF-8'));
+        
         return $this;
     }
     
@@ -348,6 +381,170 @@ class Employe
     public function getAnalyses()
     {
         return $this->analyses;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Employe
+     *
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }*/
+    
+    
+    
+    
+    
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Employe
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return Employe
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     * @return Employe
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+    
+    
+    
+    
+    
+    /**
+     * Get roles
+     *
+     * @return array 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+    
+    
+    
+    
+    
+    
+    public function eraseCredentials()
+    {
+        
+    }
+    
+    
+    
+    
+    
+    public function serialize()
+    {
+        return serialize(array($this->id, $this->username));
+    }
+    
+    
+    
+    
+    
+    private function stripAccents($string)
+    {
+        return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+                             'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
+    }
+    
+    
+    
+    
+    
+    public function unserialize($data)
+    {
+        $tab = unserialize($data);
+        $this->id = $tab[0];
+        $this->username = $tab[1];
     }
     
     

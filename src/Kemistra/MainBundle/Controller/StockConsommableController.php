@@ -4,6 +4,7 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Kemistra\MainBundle\Entity\StockConsommable;
 use Kemistra\MainBundle\Form\StockConsommableType;
@@ -22,6 +23,7 @@ class StockConsommableController extends Controller
 {
     /**
      * Affiche le formulaire d'ajout d'un consommable dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -41,6 +43,7 @@ class StockConsommableController extends Controller
     
     /**
      * Ajoute un consommable dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -67,6 +70,7 @@ class StockConsommableController extends Controller
     
     /**
      * Affiche le formulaire d'ajout d'un consommable de nouveau type dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newTypeConsommableAction()
     {
@@ -86,6 +90,7 @@ class StockConsommableController extends Controller
     
     /**
      * Ajoute un consommable de nouveau type dans le stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createTypeConsommableAction(Request $request)
     {
@@ -112,6 +117,7 @@ class StockConsommableController extends Controller
     
     /**
      * Affiche le formulaire d'édition de la quantité de consommable en stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editQuantiteAction($id)
     {
@@ -137,6 +143,7 @@ class StockConsommableController extends Controller
     
     /**
      * Édite la quantité de consommable en stock.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateQuantiteAction(Request $request, $id)
     {

@@ -5,12 +5,14 @@
 {% block body -%}
     <h1>{{ typeMateriel.0.nom }} en stock</h1>
     
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Date d'achat</th>
                 <th>Quantité en stock</th>
-                <th>Modifier la quantité</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Modifier la quantité</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -19,11 +21,11 @@
                 <tr>
                     <td>{{ stock.dateAchat|date('d/m/Y') }}</td>
                     <td>{{ stock.quantite }}</td>
-                    <td class="icone">
-                        <a title="Éditer" href="{{ path('stockmateriel_edit', { 'id': stock.idStock }) }}">
-                            <img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/>
-                        </a> 
-                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="icone">
+                            <a title="Éditer" href="{{ path('stockmateriel_edit', { 'id': stock.idStock }) }}"><img src="{{ asset('bundles/kemistramain/images/editer.png') }}" alt="Éditer"/></a> 
+                        </td>
+                    {% endif %}
                 </tr>
                 {% set somme = somme + stock.quantite %}
             {% endfor %}
@@ -32,14 +34,18 @@
             <tr>
                 <th>Total :</th>
                 <th>{{ somme }}</th>
-                <th></th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th></th>
+                {% endif %}
             </tr>
         </tfoot>
     </table>
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('stockmateriel') }}">Retour à la liste du matériel en stock</a>.</li>
-    </ul>
-    
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('stockmateriel') }}">Retour à la liste du matériel en stock</a>.</li>
 {% endblock %}

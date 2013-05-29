@@ -5,19 +5,45 @@
 {% block body -%}
     <h1>Ajout d'un nouveau type d'analyse</h1>
     
-    
-    
     <form action="{{ path('typeanalyse_create') }}" method="post" {{ form_enctype(formulaire) }}>
-        {{ form_widget(formulaire) }}
-        <p><button type="submit">Ajouter</button></p>
+        {{ form_errors(formulaire) }}
+        <fieldset>
+            <legend>Informations de l'analyse</legend>
+            {{ form_row(formulaire.nom) }}
+            {{ form_row(formulaire.dureeEstimee) }}
+            {{ form_row(formulaire.nombreEmployeNecessaire) }}
+            {{ form_row(formulaire.description) }}
+            {{ form_row(formulaire.fichier) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Les résultats à obtenir</legend>
+            {{ form_row(formulaire.typeResultats) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Le matériel à utiliser</legend>
+            {{ form_row(formulaire.utilise) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Les consommables à obtenir</legend>
+            {{ form_row(formulaire.typeConsommables) }}
+        </fieldset>
+        {{ form_rest(formulaire) }}
+        <p><button class="btn" type="submit">Enregistrer</button></p>
     </form>
-    
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('typeanalyse') }}">Annuler la création</a>.</li>
-    </ul>
 {% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('typeanalyse') }}">Annuler la création du type d'analyse</a>.</li>
+{% endblock %}
+
+
 
 
 
@@ -26,7 +52,9 @@
 
 
 
-{% block js %}
+
+
+{% block js %}{{ parent() }}
 <script type="text/javascript">
     $(document).ready(function()
     {

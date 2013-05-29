@@ -1,23 +1,27 @@
 {% extends '::form_base.html.twig' %}
 
-{% block body -%}
-    <h1>Analyse creation</h1>
+{% block titre %}Enregistrement des résultats d'une nouvelle analyse{% endblock %}
 
+{% block body -%}
+    <h1>Enregistrement des résultats d'une nouvelle analyse</h1>
+    
     <form action="{{ path('analyse_create') }}" method="post" {{ form_enctype(formulaire) }}>
         {{ form_widget(formulaire) }}
         <p>
-            <button type="submit">Create</button>
+            <button class="btn" type="submit">Enregistrer</button>
         </p>
     </form>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('analyse') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('analyse') }}">Annuler la création de l'analyse</a>.</li>
+{% endblock %}
+
+
 
 
 
@@ -26,7 +30,9 @@
 
 
 
-{% block js %}
+
+
+{% block js %}{{ parent() }}
 <script type="text/javascript">
     $(document).ready(function()
     {

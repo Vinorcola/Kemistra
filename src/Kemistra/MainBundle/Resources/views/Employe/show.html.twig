@@ -5,15 +5,15 @@
 {% block body -%}
     <h1>{{ employe.prenom }} {{ employe.nom }}</h1>
       
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <tbody>
-		    <tr>
-                <th>Prénom</th>
-                <td>{{ employe.prenom }}</td>
-            </tr>
             <tr>
                 <th>Nom</th>
                 <td>{{ employe.nom }}</td>
+            </tr>
+		    <tr>
+                <th>Prénom</th>
+                <td>{{ employe.prenom }}</td>
             </tr>
             <tr>
                 <th>Adresse</th>
@@ -30,16 +30,33 @@
         </tbody>
     </table>
     
-    <ul class="record_actions">
-        <li>
-			<a href="{{ path('employe') }}">
-				Retour à la liste des employés
-			</a>
-		</li>
-        <li>
-			<a href="{{ path('employe_edit', { 'id': employe.id }) }}">
-				Éditer les informations de {{ employe.prenom }} {{ employe.nom }}
-			</a>
-		</li>
-    </ul>
+    
+    
+    <h2>Les analyses réalisées par cet employé</h2>
+    
+    <table class="table table-bordered tableau">
+        <thead>
+            <th>Type d'analyse</th>
+            <th>date</th>
+        </thead>
+        <tbody>
+            {% for analyse in employe.analyses %}
+                <tr>
+                    <td><a href="{{ path('analyse_show', { 'id': analyse.id }) }}">{{ analyse.typeAnalyse.nom }}</a></td>
+                    <td>{% if analyse.date %}{{ analyse.date|date('d/m/Y') }}{% endif %}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">Aucune analyse.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('employe') }}">Retourner à la liste des employés</a>.</li>
+    <li><a href="{{ path('employe_edit', { 'id': employe.id }) }}">Éditer les informations de {{ employe.prenom }} {{ employe.nom }}</a>.</li>
 {% endblock %}

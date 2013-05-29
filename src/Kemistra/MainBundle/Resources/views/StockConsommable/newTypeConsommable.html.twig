@@ -5,22 +5,35 @@
 {% block body -%}
     <h1>Ajout d'un nouveau consommable dans le stock</h1>
     
-    
-    
     <form action="{{ path('stockconsommablewithtypeconsommable_create') }}" method="post" {{ form_enctype(formulaire) }}>
-        {{ form_widget(formulaire) }}
-        <p><button type="submit">Ajouter</button></p>
+        {{ form_errors(formulaire) }}
+        <fieldset>
+            <legend>Informations sur le consommable</legend>
+            {{ form_row(formulaire.typeConsommable) }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Information sur le lot</legend>
+            {{ form_rest(formulaire) }}
+        </fieldset>
+        <p><button class="btn" type="submit">Ajouter</button></p>
     </form>
-    
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('stockconsommable') }}">Annuler la création</a>.</li>
-    </ul>
 {% endblock %}
 
 
-{% block js %}
+
+
+
+{% block panel %}
+    <li><a href="{{ path('stockconsommable_new') }}">Ajouter un consommable connu</a>.</li>
+    <li><a href="{{ path('stockconsommable') }}">Annuler la création</a>.</li>
+{% endblock %}
+
+
+
+
+
+{% block js %}{{ parent() }}
 <script type="text/javascript">
     $(document).ready(function()
     {

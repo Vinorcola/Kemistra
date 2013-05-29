@@ -1,0 +1,28 @@
+
+{% block form_row %}
+{% spaceless %}
+    <div>
+        {{ form_errors(form) }}
+        {{ form_label(form) }}
+        <div class="form_widget">{{ form_widget(form) }}</div>
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+
+
+
+
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <div class="alert alert-error">
+        <ul>
+            {% for error in errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}

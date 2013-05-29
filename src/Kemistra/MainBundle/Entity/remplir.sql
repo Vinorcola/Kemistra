@@ -4,9 +4,7 @@ INSERT INTO TypeAnalyse (nom, dureeEstimee, nombreEmployeNecessaire, description
 VALUES ('Dosage du SO2 Libre', '00:15:00', 1, 'Dose la quantité de SO2 libre dans une solution alimentaire.', 'dosage_so2_libre.pdf'),
 ('Dosage du SO2 Total', '00:30:00', 1, 'Dosage du SO Total présent dans un échantillon alimentaire.', 'dosage_so2_total.pdf'),
 ('Dosage de l''acide tartrique par la méthode au vanadate', '01:20:00', 2, 'Dosage de la quantité d''acide tartrique dans une solution alimentaire.', 'dosage_acide_tartrique_methode_vanadate.pdf'),
-('Analyse ADN', '04:00:00', 2, 'Analyse ADN d''un échantillon vivant.', 'dna_extraction.pdf'),
-('Extraction de l''ADN d''un échantillon', '00:45:00', 1, 'Extraction des brins d''ADN à partir d''un échantillon', 'dna_extraction.pdf'),
-('Dosage des nucléotides', '03:15:00', 2, 'Dosage des nucléotides d''un échantillon d''ADN extrait.', 'dna_extraction.pdf');
+('Analyse ADN', '04:00:00', 2, 'Analyse ADN d''un échantillon vivant.', 'dna_extraction.pdf');
 
 
 
@@ -18,11 +16,7 @@ VALUES (1, 'mg.L-1', 'Quantité de SO2 Libre'),
 (4, 'mg.L-1', 'Quantité d''Adenine'),
 (4, 'mg.L-1', 'Quantité de Cytosine'),
 (4, 'mg.L-1', 'Quantité de Guamine'),
-(4, 'mg.L-1', 'Quantité de Thymine'),
-(6, 'mg.L-1', 'Quantité d''Adenine'),
-(6, 'mg.L-1', 'Quantité de Cytosine'),
-(6, 'mg.L-1', 'Quantité de Guamine'),
-(6, 'mg.L-1', 'Quantité de Thymine');
+(4, 'mg.L-1', 'Quantité de Thymine');
 
 
 
@@ -97,19 +91,7 @@ VALUES (1, 8, 1),
 (4, 19, 1),
 (4, 20, 1),
 (4, 21, 1),
-(4, 23, 1),
-(5, 9, 1),
-(5, 14, 1),
-(5, 23, 14),
-(6, 1, 1),
-(6, 4, 1),
-(6, 5, 1),
-(6, 12, 1),
-(6, 16, 1),
-(6, 19, 1),
-(6, 20, 1),
-(6, 21, 1),
-(6, 23, 1);
+(4, 23, 1);
 
 
 
@@ -154,33 +136,24 @@ VALUES (1, '4219-AXDSZ45', 20, 12, '2013-02-14'),
 -- Remplissage de la table Consomme
 INSERT INTO Consomme (typeAnalyse_id, typeConsommable_id)
 VALUES (4, 1),
-(5, 1),
 (4, 3),
-(5, 3),
-(6, 3),
 (1, 5),
 (2, 5),
 (1, 7),
 (2, 7),
 (4, 7),
-(6, 7),
 (2, 8),
 (3, 8),
 (4, 8),
-(6, 8),
 (1, 9),
 (2, 9),
 (4, 9),
-(5, 9),
-(6, 9),
 (4, 13),
-(5, 13),
 (3, 14),
 (3, 15),
 (3, 16),
 (3, 17),
 (4, 17),
-(6, 17),
 (3, 18);
 
 
@@ -193,39 +166,39 @@ VALUES ('Orsay', 91400),
 ('Livry-Gargan', 93190),
 ('Laon', 02000),
 ('Saint-Martin les Béziers', 84250),
-('Montcuq', 46800);
+('Chinon', 37500);
 
 
 
 -- Remplissage de la table Client
 INSERT INTO Client (nom, prenom, adresse, ville_id, telephone, email)
-VALUES ('Cayla', 'Bertrand', '24 allée Lucien Michard', 4, '06.65.09.51.51', 'b.cayla@hotmail.com'),
-('Albin', 'Bernardo', '77 avenue du Chandelier à trois bras', 5, '06.10.56.32.09', 'bernardo.albin@email.com'),
-('Lamotte', 'Martine', '111 allée des Lillas', 3, '01.44.40.02.75', 'm.lamotte@outlook.fr'),
-('Dupin', 'Baptiste', '56 impasse des Acrobates de cirque', 2, '03.25.10.42.25', 'baptiste_dupin@icloud.com'),
-('Chilibou', 'Delphine', '4 Boulevard Marc Trapèze', 1, '01.56.33.99.11', 'delphine-chilibou@live.com'),
-('Les Petits Poneys', NULL, '74 chemin des Landes', 5, '01.55.36.95.13', 'entreprise.poney@mailpro.com'),
-('Hopital de Paris', NULL, '45 avenue de Pontoise', 3, '01.43.23.65.02', 'hopital_paris@free.fr'),
-('Police Nationale', NULL, '17 rue de la Gendarmerie', 2, '01.99.17.21.20', 'police.nationale@hadopi.gouv'),
-('Tibou', 'Monique', '2 rue de la Gendarmerie', 2, '01.22.56.35.42', 'monique-tibou@wanadoo.fr'),
-('Auchan', NULL, '45 boulevard de Galapagos', 4, '08.43.33.33.33', 'auchan@auchan.com'),
-('Leclerc', NULL, '68 rue de la Martinique', 3, '01.25.99.99.99', 'Leclerc@delune.com'),
-('Hollande', 'François', '55 rue du Faubourg-Saint-Honoré ', 3, '01.02.36.48.75', 'president@elysee.fr'),
-('Cabrel', 'Francis', '44 route de la cabane au fond du jardin', 5, '01.75.65.44.23', 'francis.cabrel@jaimelaguitare.com'),
-('Maison du médicament', NULL, '235 boulevard Saint Antoine', 1, '01.72.63.58.32', 'maison_du_medicament@orange.fr'),
-('David', 'Jean-Louis', '35 avenue de la Coupe', 3, '01.23.56.85.20', 'loulou.david@coupeaubol.com');
+VALUES ('CAYLA', 'Bertrand', '24 allée Lucien Michard', 4, '06.65.09.51.51', 'b.cayla@hotmail.com'),
+('ALBIN', 'Bernardo', '77 avenue du Chandelier à trois bras', 5, '06.10.56.32.09', 'bernardo.albin@email.com'),
+('LAMOTTE', 'Martine', '111 allée des Lillas', 3, '01.44.40.02.75', 'm.lamotte@outlook.fr'),
+('DUPIN', 'Baptiste', '56 impasse des Acrobates de cirque', 2, '03.25.10.42.25', 'baptiste_dupin@icloud.com'),
+('CHILIBOU', 'Delphine', '4 Boulevard Marc Trapèze', 1, '01.56.33.99.11', 'delphine-chilibou@live.com'),
+('LES PETITS PONEYS', NULL, '74 chemin des Landes', 5, '01.55.36.95.13', 'entreprise.poney@mailpro.com'),
+('HÔPITAL DE PARIS', NULL, '45 avenue de Pontoise', 3, '01.43.23.65.02', 'hopital_paris@free.fr'),
+('POLICE MUNICIPALE', NULL, '17 rue de la Gendarmerie', 2, '01.99.17.21.20', 'police.nationale@hadopi.gouv'),
+('TIBOU', 'Monique', '2 rue de la Gendarmerie', 2, '01.22.56.35.42', 'monique-tibou@wanadoo.fr'),
+('AUCHAN', NULL, '45 boulevard de Galapagos', 4, '08.43.33.33.33', 'auchan@auchan.com'),
+('LECLERC', NULL, '68 rue de la Martinique', 3, '01.25.99.99.99', 'Leclerc@delune.com'),
+('HOLLANDE', 'François', '55 rue du Faubourg-Saint-Honoré ', 3, '01.02.36.48.75', 'president@elysee.fr'),
+('CABREL', 'Francis', '44 route de la cabane au fond du jardin', 5, '01.75.65.44.23', 'francis.cabrel@jaimelaguitare.com'),
+('MAISON DU MÉDICAMENT', NULL, '235 boulevard Saint Antoine', 1, '01.72.63.58.32', 'maison_du_medicament@orange.fr'),
+('DAVID', 'Jean-Louis', '35 avenue de la Coupe', 3, '01.23.56.85.20', 'loulou.david@coupeaubol.com');
 
 
 
 -- Remplissage de la table Employe
-INSERT INTO Employe (nom, prenom, adresse, ville_id, telephone, email)
-VALUES ('Bonnot', 'Nicolas', '11 avenue des Jambons', 1, '01.50.98.66.02', 'bonnit.bonnot@gmail.com'),
-('Martin', 'Martin', '5 rue des Cerises', 1, '06.48.09.71.22', 'double_martin@gal.com'),
-('Anemark', 'Sylvi-Aude', '48 boulevard Jean Claude Duss', 4, '02.11.02.02.50', 'cestcool@hotmail.fr'),
-('Bonnot', 'Jean', '215 avenue Mouton', 2, '03.44.14.42.36', 'lefreredebonnot@gmail.fr'),
-('Chanel', 'Coco', '9 rue du Bonheur', 3, '01.48.10.88.09', 'noix-de-coco@me.com'),
-('Pérais', 'Kévin', '12 avenue Tictac', 4, '01.45.10.23.99', 'kevin_perais@linux.fr'),
-('Roseau', 'Faustine', '66 rue du Bois', 1, '04.91.05.17.33', 'faustine.roseau@outlook.fr');
+INSERT INTO Employe (nom, prenom, adresse, ville_id, telephone, email, username, password, roles)
+VALUES ('BONNOT', 'Nicolas', '11 avenue des Jambons', 1, '01.50.98.66.02', 'bonnit.bonnot@gmail.com', 'nicolas.bonnot', 'ccadd99b16cd3d200c22d6db45d8b6630ef3d936767127347ec8a76ab992c2ea', 'a:1:{i:0;s:9:"ROLE_USER";}'),
+('MARTIN', 'Martin', '5 rue des Cerises', 1, '06.48.09.71.22', 'double_martin@gal.com', 'martin.martin', '9d4d5e8719cbc95daf30159e9e19973b45f93009c3cde7e7620baa604dce3e01', 'a:1:{i:0;s:9:"ROLE_USER";}'),
+('ANEMARK', 'Sylvie-Aude', '48 boulevard Jean Claude Duss', 4, '02.11.02.02.50', 'cestcool@hotmail.fr', 'sylive-aude.anemark', '677bf2c665da5dd41b0fd7dc0421daa6bf79f8d7faea35c40286766c63e6776b', 'a:1:{i:0;s:9:"ROLE_USER";}'),
+('BONNOT', 'Jean', '215 avenue Mouton', 2, '03.44.14.42.36', 'lefreredebonnot@gmail.fr', 'jean.bonnot', '9d4d5e8719cbc95daf30159e9e19973b45f93009c3cde7e7620baa604dce3e01', 'a:1:{i:0;s:9:"ROLE_USER";}'),
+('DETOURS', 'Paul', '9 rue du Bonheur', 3, '01.48.10.88.09', 'noix-de-coco@me.com', 'paul.detours', 'd90cd06ae6aabfb1be2191b1b4528652a136057daa5b5ec23e8007a1b81d8f08', 'a:1:{i:0;s:9:"ROLE_USER";}'),
+('PÉRAIS', 'Kévin', '12 avenue Tictac', 4, '01.45.10.23.99', 'kevin_perais@linux.fr', 'kevin.perais', 'aa3d2fe4f6d301dbd6b8fb2d2fddfb7aeebf3bec53ffff4b39a0967afa88c609', 'a:1:{i:0;s:10:"ROLE_ADMIN";}'),
+('ROSEAU', 'Faustine', '66 rue du Bois', 1, '04.91.05.17.33', 'faustine.roseau@outlook.fr', 'faustine.roseau', 'e1e7563646d76a8db4bbdde98ca27e9a4af162c0f0e2988aa1839b3feaa648af', 'a:1:{i:0;s:9:"ROLE_USER";}');
 
 
 
@@ -234,8 +207,6 @@ INSERT INTO Analyse (typeAnalyse_id, client_id, `date`)
 VALUES (1, 11, '2001-01-12'),
 (1, 11, '2001-01-12'),
 (4, 5, '2001-01-12'),
-(5, 5, '2001-01-12'),
-(6, 5, '2001-01-12'),
 (3, 8, '2001-01-12'),
 (2, 12, '2001-01-12'),
 (1, 11, '2001-01-12'),
@@ -247,16 +218,13 @@ VALUES (1, 11, '2001-01-12'),
 INSERT INTO Realise (analyse_id, employe_id)
 VALUES (6, 1),
 (3, 2),
-(5, 2),
 (3, 3),
-(4, 3),
-(5, 3),
-(7, 4),
+(5, 4),
 (1, 5),
 (2, 5),
-(8, 5),
-(9, 5),
-(6, 7);
+(6, 5),
+(7, 5),
+(4, 7);
 
 
 
@@ -268,13 +236,9 @@ VALUES (1, 1, 12.30),
 (3, 5, 27.40),
 (3, 6, 32.1),
 (3, 7, 28),
-(5, 8, 12.5),
-(5, 9, 27.40),
-(5, 10, 32.1),
-(5, 11, 28.0),
-(6, 3, 42.265),
-(7, 2, 19.250),
-(8, 1, 4.50),
-(9, 1, 7.10);
+(4, 3, 42.265),
+(5, 2, 19.250),
+(6, 1, 4.50),
+(7, 1, 7.10);
 
 

@@ -1,29 +1,24 @@
 {% extends '::form_base.html.twig' %}
 
-{% block titre %}
-	Édition des informations : {{ client.prenom }} {{ client.nom }} 
-{% endblock %}
+{% block titre %}Édition des informations de {{ client.prenom }} {{ client.nom }} {% endblock %}
 
 {% block body -%}
-    <h1>	
-		Édition des informations :
-		<br/>
-		{{ client.prenom }} {{ client.nom }} 
-	</h1>
-
+    <h1>Édition des informations du client</h1>
+	<h2>{{ client.prenom }} {{ client.nom }}</h2>
+    
     <form action="{{ path('client_update', { 'id': client.id }) }}" method="post" {{ form_enctype(formulaire) }}>
         <input type="hidden" name="_method" value="PUT" />
         {{ form_widget(formulaire) }}
         <p>
-            <button type="submit">Enregister</button>
+            <button class="btn" type="submit">Enregister</button>
         </p>
     </form>
+{% endblock %}
 
-    <ul class="record_actions">
-		<li>
-			<a href="{{ path('client') }}">
-				Annuler l'édition des informations du client
-			</a>
-		</li>
-	</ul>
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('client_show', { 'id': client.id }) }}">Annuler l'édition des informations du client</a>.</li>
 {% endblock %}

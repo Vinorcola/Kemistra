@@ -18,12 +18,12 @@ class TypeConsommableRepository extends EntityRepository
 {
     public function getListeWithStock()
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->from($this->_entityName, 'tc')->select('tc.id')->distinct(true)
-                                                        ->addSelect('tc.nom')
-                        ->join('tc.stockConsommables', 'sc');
-        
-        return $qb->getQuery()->getResult();
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'tc')->select('tc.id')->distinct(true)
+                                                         ->addSelect('tc.nom')
+                         ->join('tc.stockConsommables', 'sc')
+                         
+                         ->getQuery()->getResult();
     }
     
     
@@ -32,11 +32,13 @@ class TypeConsommableRepository extends EntityRepository
     
     public function getWithStock($id)
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->from($this->_entityName, 'tc')->select('tc.id, tc.nom, tc.unite')
-                        ->leftJoin('tc.stockConsommables', 'sc')->addSelect('sc.id as idStock, sc.numeroLot, sc.quantiteAchetee, sc.quantiteRestante, sc.datePeremption')
-                        ->where('tc.id = :id')->setParameter('id', $id);
-        
-        return $qb->getQuery()->getResult();
+        return $this->_em->createQueryBuilder()
+                         ->from($this->_entityName, 'tc')->select('tc.id, tc.nom, tc.unite')
+                         ->leftJoin('tc.stockConsommables', 'sc')->addSelect('sc.id as idStock, sc.numeroLot, sc.quantiteAchetee,  sc.quantiteRestante, sc.datePeremption')
+                         ->where('tc.id = :id')
+                         
+                         ->setParameter('id', $id)
+                         
+                         ->getQuery()->getResult();
     }
 }

@@ -4,6 +4,7 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Kemistra\MainBundle\Entity\Client;
 use Kemistra\MainBundle\Form\ClientType;
@@ -21,6 +22,7 @@ class ClientController extends Controller
 {
     /**
      * Affiche la liste des clients.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction()
     {
@@ -43,6 +45,7 @@ class ClientController extends Controller
     
     /**
      * Ajoute un nouvel client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -70,6 +73,7 @@ class ClientController extends Controller
     
     /**
      * Affiche le formulaire d'ajout d'un nouvel client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -90,12 +94,23 @@ class ClientController extends Controller
     
     /**
      * Affiche les informations concernant un client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function showAction($id)
     {
+        // Récupération de l'client.
+        $client = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Client')->getOneDetails($id);
+        
+        
+        // Si l'client n'existe pas, génération d'une erreur 404.
+        if (!$client)
+        {
+            throw $this->createNotFoundException('Impossible de trouver le client.');
+        }
+        
         // Génération de la vue.
         return $this->render('KemistraMainBundle:Client:show.html.twig',
-                             array('client' => $this->getClient($id)));
+                             array('client' => $client));
     }
     
     
@@ -104,6 +119,7 @@ class ClientController extends Controller
     
     /**
      * Affiche le formulaire d'édition d'un client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -129,6 +145,7 @@ class ClientController extends Controller
     
     /**
      * Édite les informations d'un client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
@@ -157,6 +174,7 @@ class ClientController extends Controller
     
     /**
      * Affiche le formulaire d'édition d'un client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editProAction($id)
     {
@@ -182,6 +200,7 @@ class ClientController extends Controller
     
     /**
      * Édite les informations d'un client.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateProAction(Request $request, $id)
     {

@@ -9,18 +9,20 @@
 
         {{ form_widget(formulaire) }}
         <p>
-            <button type="submit">Enregistrer</button>
+            <button class="btn" type="submit">Enregistrer</button>
         </p>
     </form>
-
-    <ul class="record_actions">
-		<li>
-			<a href="{{ path('client') }}">
-				Annuler l'ajout d'un nouveau client
-			</a>
-		</li>
-	</ul>
 {% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('client') }}">Annuler la création du client</a>.</li>
+{% endblock %}
+
+
 
 
 
@@ -33,12 +35,12 @@
         $('[name="t"]').change(function() {
             if ($('#particulier').is(":checked"))
             {
-                $('#kemistra_mainbundle_clienttype_prenom').parent().show();
+                $('#kemistra_mainbundle_clienttype_prenom').parent().parent().show();
             }
             else
             {
                 $('#kemistra_mainbundle_clienttype_prenom').val('');
-                $('#kemistra_mainbundle_clienttype_prenom').parent().hide();
+                $('#kemistra_mainbundle_clienttype_prenom').parent().parent().hide();
             }
         });
     });

@@ -4,6 +4,8 @@ namespace Kemistra\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Kemistra\MainBundle\Entity\Employe;
 use Kemistra\MainBundle\Form\EmployeType;
@@ -14,17 +16,17 @@ use Kemistra\MainBundle\Form\EmployeType;
 
 /**
  * Employe controller.
- *
  */
 class EmployeController extends Controller
 {
     /**
      * Affiche la liste des employés.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction()
     {
         // Récupération de la liste des employés.
-        $employes = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Employe')->findAll();
+        $employes = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Employe')->getAll();
         
         
         
@@ -39,11 +41,18 @@ class EmployeController extends Controller
     
     /**
      * Ajoute un nouvel employé.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
         // Création de l'entité.
         $employe  = new Employe();
+        $motDePasse = md5(rand(0, 10000).rand(0, 10000));
+        $employe->setPassword(hash('sha256', $motDePasse));
+        
+        /*
+         * A faire : envoi d'un mail à l'employé avec le mot de passe généré.
+         */
         
         
         
@@ -66,6 +75,7 @@ class EmployeController extends Controller
     
     /**
      * Affiche le formulaire d'ajout d'un nouvel employé.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -86,12 +96,31 @@ class EmployeController extends Controller
     
     /**
      * Affiche les informations concernant un employé.
+     * @Secure(roles="ROLE_USER")
      */
     public function showAction($id)
     {
+        // Récupération de l'employé.
+        $employe = $this->getDoctrine()->getManager()->getRepository('KemistraMainBundle:Employe')->getOneDetails($id);
+        
+        
+        // Vérification de la sécurité.
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN') && $employe->getId() != $this->getUser()->getId())
+        {
+            throw new AccessDeniedHttpException('Vous n\'avez pas accès au profil des autres employés.');
+        }
+        
+        
+        // Si l'employé n'existe pas, génération d'une erreur 404.
+        if (!$employe)
+        {
+            throw $this->createNotFoundException('Impossible de trouver l\'employé.');
+        }
+        
+        
         // Génération de la vue.
         return $this->render('KemistraMainBundle:Employe:show.html.twig',
-                             array('employe' => $this->getEmploye($id)));
+                             array('employe' => $employe));
     }
     
     
@@ -100,6 +129,7 @@ class EmployeController extends Controller
     
     /**
      * Affiche le formulaire d'édition d'un employé.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -125,6 +155,7 @@ class EmployeController extends Controller
     
     /**
      * Édite les informations d'un employé.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {

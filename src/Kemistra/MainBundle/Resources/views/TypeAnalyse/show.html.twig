@@ -5,12 +5,10 @@
 {% block body -%}
     <h1>{{ typeAnalyse.nom }}</h1>
     
-    
-    
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <tbody>
             <tr>
-                <th>Nom</th>
+                <th>Analyse</th>
                 <td>{{ typeAnalyse.nom }}</td>
             </tr>
             <tr>
@@ -18,7 +16,7 @@
                 <td>{{ typeAnalyse.dureeEstimee|date('G\\hi\\m\\i\\n') }}</td>
             </tr>
             <tr>
-                <th>Nombre d'employé nécessaire pour la réalisation de l'analyse</th>
+                <th>Nombre d'employé nécessaire</th>
                 <td>{{ typeAnalyse.nombreEmployeNecessaire }}</td>
             </tr>
             <tr>
@@ -33,9 +31,10 @@
     </table>
     
     
+    
     <h2>Les résultats à enregistrer</h2>
     
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Information</th>
@@ -55,9 +54,10 @@
     </table>
     
     
+    
     <h2>Le matériel à utiliser</h2>
     
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -77,9 +77,10 @@
     </table>
     
     
+    
     <h2>Les consommables nécessaires</h2>
     
-    <table class="record_properties table table-bordered table-striped table-condensed">
+    <table class="table table-bordered tableau">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -95,10 +96,15 @@
             {% endfor %}
         </tbody>
     </table>
-    
-    
-    <ul class="record_actions">
-        <li><a href="{{ path('typeanalyse') }}">Retour à la liste des types d'analyse</a>.</li>
-        <li><a href="{{ path('typeanalyse_edit', { 'id': typeAnalyse.id }) }}">Éditer les informations de l'analyse {{ typeAnalyse.nom }}</a>.</li>
-    </ul>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('typeanalyse') }}">Retourner à la liste des types analyses</a>.</li>
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ path('typeanalyse_edit', { 'id': typeAnalyse.id }) }}">Éditer les informations de l'analyse</a>.</li>
+    {% endif %}
 {% endblock %}

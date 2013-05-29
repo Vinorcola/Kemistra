@@ -8,15 +8,15 @@
     <form action="{{ path('employe_create') }}" method="post" {{ form_enctype(formulaire) }}>
         {{ form_widget(formulaire) }}
         <p>
-			<button type="submit">Enregistrer</button>
+			<button class="btn" type="submit">Enregistrer</button>
 		</p>
     </form>
-     
-    <ul class="record_actions">
-        <li>
-			<a href="{{ path('employe') }}">
-				Annuler l'ajout d'un nouvel employé
-			</a>
-		</li>
-    </ul>
+{% endblock %}
+
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('employe') }}">Annuler l'ajout d'un nouvel employé</a>.</li>
 {% endblock %}

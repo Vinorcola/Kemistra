@@ -1,38 +1,71 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Analyse</h1>
+{% block titre %}{{ analyse.typeAnalyse.nom }} pour {{ analyse.client }}{% endblock %}
 
-    <table class="record_properties">
+{% block body -%}
+    <h1>{{ analyse.typeAnalyse.nom }}</h1>
+    <h2>pour {{ analyse.client }}</h2>
+    
+    <table class="table table-bordered tableau">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <th>Type d'analyse</th>
+                <td>{{ analyse.typeAnalyse.nom }}</td>
             </tr>
             <tr>
-                <th>Date</th>
-                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+                <th>Client</th>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('client_show', { 'id': analyse.client.id }) }}">
+                    {% endif %}
+                        {{ analyse.client }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Employé ayant participé à la réalisation de l'analyse</th>
+                <td>{% set premier=true %}{% for employe in analyse.employes %}{% if premier %}{% set premier=false %}{% else %}, {% endif %}{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('employe_show', { 'id': employe.id }) }}">{% endif %}{{ employe }}{% if is_granted('ROLE_ADMIN') %}</a>{% endif %}{% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Description rapide de l'analyse</th>
+                <td>{{ analyse.typeAnalyse.description }}</td>
             </tr>
         </tbody>
     </table>
+    
+    
+    
+    <h2>Résultats obtenus</h2>
+    
+    <table class="table table-bordered tableau">
+        <thead>
+            <tr>
+                <th>Information</th>
+                <th>Résultat</th>
+                <th>Unité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resultat in analyse.resultats %}
+                <tr>
+                    <td>{{ resultat.typeResultat.information }}</td>
+                    <td>{{ resultat.resultat }}</td>
+                    <td>{{ resultat.typeResultat.unite }}</td>
+                </tr>
+            {% else %}
+                <tr><td clospan="2">Aucun résultat à obtenir.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('analyse') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('analyse_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('analyse_delete', { 'id': entity.id }) }}" method="post">
-            <input type="hidden" name="_method" value="DELETE" />
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+
+
+
+
+{% block panel %}
+    <li><a href="{{ path('analyse') }}">Retourner à la liste des analyses</a>.</li>
+    <li><a href="{{ path('analyse_edit', { 'id': analyse.id }) }}">Éditer les informations de l'analyse</a>.</li>
 {% endblock %}
